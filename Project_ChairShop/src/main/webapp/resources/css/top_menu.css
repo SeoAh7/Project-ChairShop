@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+/* top_menu */
+	section.top_menu{
+		position: relative;
+		width: 100%;
+		height: 40px;
+		background: #ccc;
+	}
+	div.top_menu_f{
+		margin : auto;
+		width: 1200px;
+	}
+	div.top_menu_f>ul{
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+	}
+	div.top_menu_f>ul>li{
+		margin-left : 20px;
+		height: 40px;
+		line-height: 40px;
+		font-size: 14px;
+	}
+	div.top_menu_f>ul>li>a{
+		display: block;
+		color: #000;
+	}
+	

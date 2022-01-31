@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+     
+     <select id="member_list" resultType="member">
+     	select * from cs_member
+     </select>
+     
+     <select id="member_one" parameterType="String" resultType="member">
+     	select * from cs_member where m_id = #{m_id} 
+     </select>
+     
+     <insert id="member_insert" parameterType="member">
+     	insert into cs_member values(seq_chairshop_m_idx.nextVal, 
+							     	 #{m_name}, 
+							     	 #{m_id}, 
+							     	 #{m_pwd}, 
+							     	 #{m_zipcode}, 
+							     	 #{m_addr}, 
+							     	 #{m_tel}, 
+							     	 #{m_grade}, 
+							     	 0,			 
+									 #{m_mail}, 
+									 #{m_ip})
+     </insert>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

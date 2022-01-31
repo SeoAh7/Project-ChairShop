@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+    
+    <!-- 전체조회 --> 
+    <select id="qna_list" resultType="qna">
+    	select * from cs_qna
+			order by q_ref desc, q_step asc
+    </select>
+
+	<!-- q_idx별 조회 -->
+	<select id="qna_one" parameterType="int" resultType="qna">
+		select * from cs_qna
+			where q_idx=#{ q_idx }
+	</select>
+	
+	<!-- 추가 -->
+	<insert id="qna_insert" parameterType="qna">
+		insert into cs_qna values(seq_chairshop_q_idx.nextVal,
+						  		  #{ q_subject },
+						  		  #{ q_content },
+						  		  sysdate,
+						  		  default,
+						  		  #{ q_ip },
+						 		  #{ m_idx },
+						 		  #{ m_id },
+						  		  seq_chairshop_q_idx.currVal,
+						  		  0,
+						  		  0
+						)
+	</insert>
+	
+	<!-- 삭제(사용유무) -->
+	<update id="qna_update_use_yn" parameterType="int">
+		update cs_qna set q_use_yn='n'
+					where q_idx=#{ q_idx }
+	</update>
+	
+	<!-- 수정 -->
+	<update id="qna_update" parameterType="qna">
+		update cs_qna set q_subject=#{ q_subject },
+						  q_content=#{ q_content },
+						  q_ip=#{ q_ip },
+						  q_regdate=sysdate
+					where q_idx=#{ q_idx }
+	</update>
+	
+	<!-- 답글달기 -->
+	<insert id="qna_reply" parameterType="qna">
+		insert into cs_qna values(seq_chairshop_q_idx.nextVal,
+						  		  #{ q_subject },
+						  		  #{ q_content },
+						  		  sysdate,
+						  		  default,
+						  		  #{ q_ip },
+						 		  #{ m_idx },
+						 		  #{ m_id },
+						  		  #{ q_ref },
+						  		  #{ q_step },
+						  		  #{ q_depth }
+						) 
+	</insert>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
