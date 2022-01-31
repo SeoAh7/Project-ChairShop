@@ -17,9 +17,36 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
-<script type="text/javascript" src="../resources/js/header_scroll.js"></script>
 <style type="text/css">
 	
+	*{
+		margin: 0;
+		padding: 0;
+		text-decoration: none;
+		list-style: none;
+	}
+	a:hover{
+		text-decoration: none;
+	}
+	/* contents */
+	section.content{
+		position: relative;
+		padding-top: 170px;
+		width: 100%;
+		height: auto;
+	}
+	div.content_f{
+		position: relative;
+		margin : auto;	
+		width: 800px;
+		height: inherit;
+		background: #fff;
+		text-align: center;
+	}
+	#title{
+		padding: 30px 0 30px 0;
+		font-size: 30px;
+	}
 	th{
 		text-align: center;
 	}
@@ -96,7 +123,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2" style="text-align: center;">
+						<td colspan="2" style="text-align: center; padding-bottom: 100px;">
 							<input type="button" class="btn btn-info" value="등록" onclick="send(this.form);">
 							<input type="button" class="btn btn-danger" value="취소" onclick="cancel();">
 						</td>

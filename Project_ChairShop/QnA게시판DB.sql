@@ -70,6 +70,18 @@ select * from cs_member
 select * from cs_qna
 	order by q_ref desc, q_step asc
 
+select nvl(count(*),0) from cs_qna
 
+select * from 
+(
+	select
+		rank() over(order by q_ref desc, q_step asc) as no, 
+		q.*
+	from
+	(	select * from cs_qna ) q
+)
+where no between 1 and 10
+
+delete from cs_qna where q_idx=33
 
 */

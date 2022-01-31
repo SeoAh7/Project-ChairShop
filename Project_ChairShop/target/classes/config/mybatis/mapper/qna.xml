@@ -9,6 +9,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 			order by q_ref desc, q_step asc
     </select>
 
+	<!-- 검색조건별 게시물 수 -->
+	<select id="qna_rowtotal" parameterType="int" resultType="int">
+		select nvl(count(*),0) from cs_qna
+	</select>
+
+	<!-- 페이지별 조회 -->
+	<select id="qna_condition_list" parameterType="Map" resultType="qna">
+		select * from
+		(
+			select
+				rank() over(order by q_ref desc, q_step asc) as no, 
+				q.*
+			from
+			( select * from cs_qna ) q
+		)
+		where no between #{ start } and #{ end }
+	</select>
+
+
+
+
+
+
+
+
+
+
+
 	<!-- q_idx별 조회 -->
 	<select id="qna_one" parameterType="int" resultType="qna">
 		select * from cs_qna

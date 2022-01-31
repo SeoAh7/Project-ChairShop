@@ -1,5 +1,3 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -19,20 +17,70 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
-<script type="text/javascript" src="../resources/js/header_scroll.js"></script>
 <style type="text/css">
 	
+	*{
+		margin: 0;
+		padding: 0;
+		text-decoration: none;
+		list-style: none;
+	}
+	a:hover{
+		text-decoration: none;
+	}
+	/* contents */
+	section.content{
+		position: relative;
+		padding-top: 170px;
+		width: 100%;
+		height: auto;
+	}
+	div.content_f{
+		position: relative;
+		margin : auto;	
+		width: 800px;
+		height: inherit;
+		background: #fff;
+		text-align: center;
+	}
+	#title{
+		padding: 30px 0 30px 0;
+		font-size: 30px;
+	}
 	th,td{
 		height: 30px;
 		text-align: center;
+		color: #333333;
 	}
 	.q_subject{
-		color: black;
+		color: #333333;
 	}
 	.q_subject:hover{
 		text-decoration:none;
-		color: black;
+		color: #333333;
 		font-weight: bold;
+	}
+	#page_menu{
+		font-size: 14px;
+		padding: 30px;
+	}
+	.page_box{
+		display:inline-block;
+		width: 27px;
+		height: 23px;
+		border: 1px solid #d9d9d9;
+		border-radius: 2px;
+	}
+	.page_btn{
+		display:inline-block;
+		width: 27px;
+		height: 23px;
+		border: 1px solid #d9d9d9;
+		border-radius: 2px;
+		color: #333333;
+	}
+	.page_btn:hover{
+		color: #333333;
 	}
 	
 </style>
@@ -107,7 +155,7 @@
 							
 							<!-- 삭제되지 않은 게시물이면 -->
 							<c:if test="${ vo.q_use_yn eq 'y' }">
-								<a class="q_subject" href="view.do?q_idx=${ vo.q_idx }">
+								<a class="q_subject" href="view.do?q_idx=${ vo.q_idx }&page=${ empty param.page ? 1 : param.page }">
 									${ vo.q_subject }
 									<c:if test="${ fn:substring(vo.q_regdate,0,10) eq vo.today }">
 										<img src="${ pageContext.request.contextPath }/resources/image/new.png">
@@ -132,6 +180,14 @@
 							<td>${ fn:substring(vo.q_regdate,0,10) }</td>
 						</tr>
 					</c:forEach>
+					
+					<tr>
+						<td colspan="4">
+							<div id="page_menu">
+								${ pageMenu }
+							</div>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</section>

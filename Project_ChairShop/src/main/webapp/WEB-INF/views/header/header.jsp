@@ -9,9 +9,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css"> 
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/header.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/top_menu.css">
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/footer.css">
 
 <script type="text/javascript">
 
@@ -50,7 +50,6 @@
 
 </head>
 <body>
-<header class="hide"></header>
 <header class="header">
 	<section class="top_menu">
 		<div class="top_menu_f">

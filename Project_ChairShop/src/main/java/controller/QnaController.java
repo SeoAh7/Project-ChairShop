@@ -1,6 +1,8 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.QnaDao;
+import myutil.MyConstant;
+import myutil.Paging;
 import vo.MemberVo;
 import vo.QnaVo;
 
@@ -31,11 +36,24 @@ public class QnaController {
 	
 	
 	@RequestMapping("/qna/list.do")
-	public String list(Model model) {
+	public String list(@RequestParam(name="page",defaultValue="1") int nowPage, Model model) {
 		
-		List<QnaVo> list = qna_dao.selectList();
+		//게시물에서 가져올 범위
+		int start = (nowPage-1) * MyConstant.Qna.BLOCK_LIST + 1;
+		int end   = start + MyConstant.Qna.BLOCK_LIST - 1;
+		
+		Map map = new HashMap();
+		map.put("start", start);
+		map.put("end", end);
+		
+		int rowTotal = qna_dao.selectRowTotal(map);
+		
+		String pageMenu = Paging.getPaging("list.do", nowPage, rowTotal, MyConstant.Qna.BLOCK_LIST, MyConstant.Qna.BLOCK_PAGE);
+		
+		List<QnaVo> list = qna_dao.selectList(map);
 		
 		model.addAttribute("list", list);
+		model.addAttribute("pageMenu",pageMenu);
 		
 		return "qna/qna_list";
 	}
@@ -77,9 +95,11 @@ public class QnaController {
 	}
 	
 	@RequestMapping("/qna/delete.do")
-	public String delete(int q_idx) {
+	public String delete(int q_idx, int page, Model model) {
 		
 		int res = qna_dao.update_use_yn(q_idx);
+		
+		model.addAttribute("page", page);
 		
 		return "redirect:list.do";
 	}
@@ -98,7 +118,7 @@ public class QnaController {
 	}
 	
 	@RequestMapping("/qna/modify.do")
-	public String modify(QnaVo vo, Model model) {
+	public String modify(QnaVo vo, int page, Model model) {
 		
 		String q_ip = request.getRemoteAddr();
 		vo.setQ_ip(q_ip);
@@ -109,6 +129,7 @@ public class QnaController {
 		int res = qna_dao.update(vo);
 
 		model.addAttribute("q_idx", vo.getQ_idx());
+		model.addAttribute("page", page);
 		
 		return "redirect:view.do";
 	}
@@ -124,7 +145,7 @@ public class QnaController {
 	}
 	
 	@RequestMapping("/qna/reply.do")
-	public String reply(QnaVo vo, Model model) {
+	public String reply(QnaVo vo, int page, Model model) {
 		
 		MemberVo user = (MemberVo) session.getAttribute("user");
 		
@@ -143,6 +164,8 @@ public class QnaController {
 		vo.setQ_depth(baseVo.getQ_depth()+1);
 
 		int res = qna_dao.reply(vo);
+		
+		model.addAttribute("page", page);
 		
 		return "redirect:list.do";
 	}

@@ -1,12 +1,14 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import vo.QnaVo;
 
 public interface QnaDao {
 	
 	List<QnaVo> selectList();
+	List<QnaVo> selectList(Map map);
 	QnaVo 		selectOne(int q_idx);
 	
 	
@@ -15,6 +17,7 @@ public interface QnaDao {
 	int 		delete(int q_idx);
 	int 		update(QnaVo vo);
 	int 		reply(QnaVo vo);
+	int 		selectRowTotal(Map map);
 	
 
 }

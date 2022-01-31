@@ -17,9 +17,32 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
-<script type="text/javascript" src="../resources/js/header_scroll.js"></script>
 <style type="text/css">
 
+	*{
+		margin: 0;
+		padding: 0;
+		text-decoration: none;
+		list-style: none;
+	}
+	a:hover{
+		text-decoration: none;
+	}
+	/* contents */
+	section.content{
+		position: relative;
+		padding-top: 170px;
+		width: 100%;
+		height: auto;
+	}
+	div.content_f{
+		position: relative;
+		margin : auto;	
+		width: 800px;
+		height: inherit;
+		background: #fff;
+		text-align: center;
+	}
 	th{
 		text-align: center;
 	}
@@ -35,7 +58,7 @@
 		
 		if(confirm("정말 삭제하시겠습니까?")==false)return;
 		
-		location.href="delete.do?q_idx=${ vo.q_idx }";
+		location.href="delete.do?q_idx=${ vo.q_idx }&page=${ param.page }";
 		
 	}
 	
@@ -51,11 +74,11 @@
 		<section class="content">
 			<div class="content_f">
 				<div style="margin-bottom: 10px; margin-right:10px; text-align: right;">
-					<input class="btn btn-success" type="button" value="목록" style="margin-top: 20px;"
-						   onclick="location.href='list.do'">
+					<input class="btn btn-success" type="button" value="목록" style="margin-top: 50px;"
+						   onclick="location.href='list.do?&page=${ param.page }'">
 				</div>
 			
-				<table class="table" style="padding-top: 20px;">
+				<table class="table" style="margin-bottom: 60px;">
 		      		<tr>
 						<th width="20%">제목</th>
 						<td width="80%">${ vo.q_subject }</td>
@@ -85,14 +108,14 @@
 							
 							<!-- 작성자 본인일 경우에만 표시 -->
 							<c:if test="${ user.m_idx == vo.m_idx }">
-								<input type="button" class="btn btn-info" value="수정" onclick="location.href='modify_form.do?q_idx=${ vo.q_idx }'">
+								<input type="button" class="btn btn-info" value="수정" onclick="location.href='modify_form.do?q_idx=${ vo.q_idx }&page=${ param.page }'">
 								<input type="button" class="btn btn-danger" value="삭제" onclick="qna_delete();">
 							</c:if>
 							
 							
 							<!-- 관리자일 경우에만 표시 -->
 							<c:if test="${ (user.m_grade eq '관리자') && ( vo.q_depth eq 0 ) }">
-								<input type="button" class="btn btn-warning" value="답변작성" onclick="location.href='reply_form.do?q_idx=${ vo.q_idx }'">
+								<input type="button" class="btn btn-warning" value="답변작성" onclick="location.href='reply_form.do?q_idx=${ vo.q_idx }&page=${ param.page }'">
 								<input type="button" class="btn btn-danger" value="삭제" onclick="qna_delete();">
 							</c:if>
 						</td>
