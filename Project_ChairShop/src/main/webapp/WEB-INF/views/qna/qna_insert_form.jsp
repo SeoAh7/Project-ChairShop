@@ -39,6 +39,7 @@
 		position: relative;
 		margin : auto;	
 		width: 800px;
+		min-height : 600px;
 		height: inherit;
 		background: #fff;
 		text-align: center;

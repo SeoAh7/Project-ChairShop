@@ -7,8 +7,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
      	select * from cs_member
      </select>
      
-     <select id="member_one" parameterType="String" resultType="member">
+     <!-- 검색조건별 게시물 수 -->
+	<select id="member_rowtotal" parameterType="Map" resultType="int">
+		select nvl(count(*),0) from cs_member
+			<trim prefix="where" prefixOverrides="or">
+				<if test="id!=null">
+					m_id like '%' || #{ id } || '%'
+				</if>
+				
+				<if test="name!=null">
+					or m_name like '%' || #{ name } || '%'
+				</if>
+			</trim>
+	</select>
+     <!-- 페이지별 조회 -->
+	<select id="member_condition_list" parameterType="Map" resultType="member">
+		select * from
+		(
+			select
+				rank() over(order by m_idx desc) as no, 
+				m.*
+			from
+				( 
+					select * from cs_member
+				<trim prefix="where" prefixOverrides="or">
+				<if test="id!=null">
+					m_id like '%' || #{ id } || '%'
+				</if>
+				
+				<if test="name!=null">
+					or m_name like '%' || #{ name } || '%'
+				</if>
+				</trim>
+				) m
+		)
+		where no between #{ start } and #{ end }
+	</select>
+     
+     
+     <select id="member_one_m_id" parameterType="String" resultType="member">
      	select * from cs_member where m_id = #{m_id} 
+     </select>
+     
+     <select id="member_one_m_idx" parameterType="int" resultType="member">
+     	select * from cs_member where m_idx = #{m_idx} 
+     </select>
+     
+     <select id="member_one_vo" parameterType="member" resultType="member">
+     	select * from cs_member where m_name = #{m_name} and m_tel = #{m_tel}
      </select>
      
      <insert id="member_insert" parameterType="member">
@@ -24,7 +70,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 									 #{m_mail}, 
 									 #{m_ip})
      </insert>
-
+	
+	
+	 <!-- 삭제 -->
+	<delete id="member_delete" parameterType="int">
+		delete from cs_member where m_idx=#{ m_idx }
+	</delete>
+	
+	<!-- 수정 -->
+	<update id="member_update" parameterType="member">
+		update cs_member set m_name = #{ m_name },
+						  m_id = #{ m_id },
+						  m_pwd = #{ m_pwd },
+						  m_zipcode = #{ m_zipcode },
+						  m_addr = #{ m_addr },
+						  m_ip = #{ m_ip },
+						  m_grade = #{ m_grade }
+					where m_idx = #{ m_idx }
+	</update>
+	
+	 <update id="member_update_pwd" parameterType="member">
+     	update cs_member set m_pwd = #{m_pwd}
+     				where m_idx = #{ m_idx }
+     </update>
 </mapper>
 
 

@@ -15,5 +15,23 @@
 		<property name="sqlSession" ref="sqlSession"/>
 	</bean>
 	
+	<!-- CartDaoImpl -->
+	<bean id="cart_dao" class="dao.CartDaoImpl">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	
+	<!-- ProductDaoImpl -->
+	<bean id="product_dao" class="dao.ProductDaoImpl">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	
+	<!-- NoticeDaoImpl -->
+	<bean id="notice_dao" class="dao.NoticeDaoImpl">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	<!-- FAQDaoImpl -->
+	<bean id="faq_dao" class="dao.FaqDaoImpl">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
 		
 </beans>

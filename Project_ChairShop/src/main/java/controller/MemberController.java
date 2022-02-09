@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.MemberDao;
+import myutil.MyConstant;
+import myutil.Paging;
+import vo.FaqVo;
 import vo.MemberVo;
 
 @Controller
@@ -33,11 +36,52 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/list.do")
-	public String list(Model model) {
+	public String list(@RequestParam(name="page",defaultValue ="1" ) int nowPage,
+					   @RequestParam(name="search",defaultValue="all") String search,
+					   @RequestParam(name="search_text",defaultValue="") String search_text,
+					   Model model) {
 		
-		List<MemberVo> list = member_dao.selectList();
+
+		int start = (nowPage-1) * MyConstant.Mem.BLOCK_LIST + 1;
+		int end   = start + MyConstant.Mem.BLOCK_LIST -1;
 		
-		model.addAttribute("list", list);
+		Map map = new HashMap();
+		map.put("start",start);
+		map.put("end", end);
+		
+		if(search.equals("all")) {
+			
+			map.put("id", search_text);
+			map.put("name", search_text);
+			
+		}else if(search.equals("id")) {
+			
+			map.put("id", search_text);
+			
+		}else if(search.equals("name")) {
+			
+			map.put("name", search_text);
+			
+		}
+		
+		//전체 게시물 수
+		int rowTotal = member_dao.selectRowTotal(map);
+		/* System.out.printf("%d 개\n",rowTotal); */
+		//검색필터 
+		String search_filter = String.format("search=%s&search_text=%s", search, search_text);
+		
+		String pageMenu = Paging.getPaging("list.do",
+											search_filter,
+											nowPage, 
+											rowTotal, 
+											MyConstant.Mem.BLOCK_LIST, 
+											MyConstant.Mem.BLOCK_PAGE
+											);
+		
+		List<MemberVo> list = member_dao.selectList(map);
+		
+		model.addAttribute("list",list);
+		model.addAttribute("pageMenu",pageMenu);
 		
 		return "member/member_list";
 	}
@@ -99,7 +143,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/insert.do")
-	public String insert(MemberVo vo) {
+	public String insert(MemberVo vo, Model model) {
 		
 		String ip = request.getRemoteAddr();
 		
@@ -107,6 +151,7 @@ public class MemberController {
 		vo.setM_grade("일반");
 		
 		int res = member_dao.insert(vo);
+		model.addAttribute("reason","register");
 		
 		return "redirect:login_form.do";
 	}
@@ -128,19 +173,135 @@ public class MemberController {
 		return map;
 	}
 	
+	@RequestMapping("/member/check_pwd.do")
+	@ResponseBody
+	public Map check_pwd(String m_pwd, String check_pwd) {
+		
+		System.out.println(m_pwd);
+		System.out.println(check_pwd);
+		
+		Map map = new HashMap();
+		
+		if(m_pwd.equals(check_pwd)==true) 
+			map.put("result", true);
+		else
+			map.put("result", false);
+
+		System.out.println(map);
+		return map;
+	}
+	
+	@RequestMapping("/member/find_id_form.do")
+	public String find_id_form() {
+		
+		
+		return "member/find_id_form";
+	}
 	
 	
+	@RequestMapping("/member/find_id.do")
+	@ResponseBody
+	public Map find_id(MemberVo vo) {
+		
+		Map map = new HashMap();
+		
+		MemberVo find_vo = member_dao.selectOne(vo);
+		
+		String find_id = find_vo.find_id();
+		
+		if(find_vo != null) {
+			map.put("find_id", find_id);
+			map.put("result", true);
+		}else {
+			map.put("result", false);
+		}
+		
+		return map;
+	}
 	
+	@RequestMapping("/member/find_pwd_form.do")
+	public String find_pwd_form() {
+		
+		return "member/find_pwd_form";
+	}
 	
+	@RequestMapping("/member/find_pwd.do")
+	public String find_pwd(MemberVo vo, Model model) {
+		
+		MemberVo find_vo = member_dao.selectOne(vo);
+		
+		model.addAttribute("find_vo", find_vo);
+		
+		return "member/reset_pwd_form";
+	}
 	
+	@RequestMapping("/member/reset_pwd.do")
+	public String reset_pwd(int m_idx, String m_pwd, Model model) {
+		
+		MemberVo reset_vo = member_dao.selectOne(m_idx);
+		
+		reset_vo.setM_pwd(m_pwd);
+		
+		int res = member_dao.update_pwd(reset_vo);
+		
+		model.addAttribute("reason", "reset_pwd");
+		
+		return "redirect:login_form.do";
+	}
 	
-	
-	
-	
-	
-	
-	
-	
+	//삭제하기
+		@RequestMapping("/member/delete.do")
+		public String delete(int m_idx,int page,String search,String search_text,Model model) {
+			
+			int res = member_dao.delete(m_idx);
+			model.addAttribute("page", page);
+			model.addAttribute("search", search);
+			model.addAttribute("search_text", search_text);
+			
+			return "redirect:member_manage.do";
+		}
+		
+		//수정폼 띄우기
+		@RequestMapping("/member/modify_form.do")
+		public String modify_form(int m_idx, Model model) {
+			
+			MemberVo vo = member_dao.selectOne(m_idx);
+			System.out.println(vo.getM_zipcode_str());
+			model.addAttribute("vo", vo);
+			
+			return "member/modify_form";
+		}
+		//회원이 마이페이지에서 수정하기
+		@RequestMapping("/member/modify.do")
+		public String modify(MemberVo vo) {
+					
+			String m_ip = request.getRemoteAddr();
+			vo.setM_ip(m_ip);
+					
+			int res = member_dao.update(vo);
+					
+			return "redirect:../";
+		}
+		
+		
+		  //수정하기
+		  
+		  @RequestMapping("/member/manage.do") 
+		  public String manage(MemberVo vo,
+				  				int page,String search,String search_text,Model model) {
+		  
+		  String m_ip = request.getRemoteAddr(); vo.setM_ip(m_ip);
+		  
+		  
+		  int res = member_dao.update(vo); model.addAttribute("page", page);
+		  model.addAttribute("search", search); model.addAttribute("search_text",
+		  search_text);
+		  
+		  return "redirect:member_manage.do"; 
+		  
+		
+		}
+		
 	
 	
 	

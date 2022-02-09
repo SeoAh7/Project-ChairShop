@@ -1,5 +1,5 @@
 /*
-
+select * from cs_cart_view where m_idx = #{ m_idx }
 --ÀÏ·Ã¹øÈ£
 create sequence seq_chairshop_c_idx
 
@@ -29,8 +29,29 @@ alter table cs_cart
 									references cs_member(m_idx)
 									on delete cascade ;
 
+create or replace view cs_cart_view
+as
+	select
+	   p.p_idx as p_idx,
+	   c_idx, 
+	   p.p_name as p_name,
+	   p.p_price as p_price,
+	   c_cnt,
+	   c_cnt* p.p_price as amount,
+	   m_idx
+	from cs_product p inner join  cs_cart c on p.p_idx = c.p_idx  
+
+
+select * from cs_cart_view
+
 	
---»ùÇÃ								
+--»ùÇÃ		
+select * from cs_member
+
+insert into cart values(seq_chairshop_c_idx.nextVal, 1, 1 , 1);
+
+select * from cs_cart where m_idx=1
+												
 insert into cs_cart values(seq_chairshop_c_idx.nextVal,
 						   1,
 						   'T50',
@@ -38,7 +59,14 @@ insert into cs_cart values(seq_chairshop_c_idx.nextVal,
 						   1,
 						   150000
 						  );
-
+insert into cs_cart values(seq_chairshop_c_idx.nextVal,
+						   1,
+						   'BD120',
+						   2,
+						   1,
+						   100000
+						  );
 select * from cs_cart
 
+commit
 */

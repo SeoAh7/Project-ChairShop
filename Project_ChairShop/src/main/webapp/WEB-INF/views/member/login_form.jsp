@@ -7,7 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css">
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/footer.css">
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/header.css">
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/top_menu.css">
 
 <style type="text/css">
 
@@ -23,6 +28,7 @@
 		padding-top: 170px;
 		width: 100%;
 		height: 600px;
+		padding-top:170px;
 	}
 	div.content_f{
 		position: relative;
@@ -105,7 +111,11 @@
 	  	  alert('비밀번호가 틀렸습니다');
 	  	  
 	    }	
-		  
+		  if("${ param.reason eq 'register'}"=="true"){
+		  	  
+		  	  alert('회원가입 되었습니다.');
+		  	  
+		    }	
 	}
 
 	function send(f) {
@@ -146,8 +156,8 @@
 					<input class="login_b" type="button" value="로그인" onclick="send(this.form);">
 					<div class="find_user">
 						<ul>
-							<li><a href="#">아이디 찾기</a></li>
-							<li><a href="#">비밀번호 찾기</a></li>
+							<li><a href="${ pageContext.request.contextPath }/member/find_id_form.do">아이디 찾기</a></li>
+							<li><a href="${ pageContext.request.contextPath }/member/find_pwd_form.do">비밀번호 찾기</a></li>
 							<li><a href="register_form.do">회원가입</a></li>
 						</ul>
 					</div>

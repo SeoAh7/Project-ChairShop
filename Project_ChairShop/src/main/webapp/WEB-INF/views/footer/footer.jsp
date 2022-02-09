@@ -5,9 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.scroll_btn').click(function() {
+			$('html, body').animate({
+				scrollTop:0
+			},400);
+			return false;
+		});
+	});
+</script>
 </head>
 <body>
+<div class="scroll_box">
+		<input type="button" class="scroll_btn" onclick="scrolltop();" style="">
+</div>
 <section class="footer">
 	<div class="footer_f">
 				<div class="foot_info">

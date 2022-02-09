@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+
+section.content{
+	padding-top: 170px;
+	
+}
+div.content_f{
+	width: 1200px;
+}
+
+div.load_list>ul{
+	display: flex;
+	flex-direction: row;
+	padding: 30px 0 30px 0;
+}
+div.load_list>ul>li:nth-last-child(2){
+	padding: 0 5px 0 5px;
+}
+div.load_list>ul>li:nth-last-child(4){
+	padding: 0 5px 0 5px;
+}
+
+div.load_list>ul>li>a{
+	color: #5a5a5a;
+}
+
+div.goods_info{
+	display: flex;
+	flex-direction: row;
+}
+
+div.goods_info>img{
+	background: #000;
+	width: 30%;
+	height: 360px;
+}
+div.p_info{
+	width: 65%;
+	margin-left: 5%;
+}
+div.p_info>h1{
+	padding-bottom : 30px;
+	border-bottom: 3px solid #fdc257;
+}
+div.p_info>p{
+	padding : 100px 0 100px 0;
+	font-size: 35px;
+	font-weight: bold;
+}
+
+div.p_buy{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+div.p_buy>a{
+	width: 45%;
+	height: 70px;
+	line-height: 70px;
+	text-align: center;
+	font-size: 25px;
+	font-weight: 555;
+}
+
+a.cart_insert{
+	background: #fff;
+	border: 3px solid #fdc257;
+	color: #fdc257;
+}
+
+a.cart_buy{
+	background: #fdc257;
+	color: #fff;
+}
+
+
+
+
+
+
+
+
+

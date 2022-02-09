@@ -36,4 +36,24 @@
 		<beans:property name="qna_dao" ref="qna_dao"/>
 	</beans:bean>
 	
+	<!-- CartController -->
+	<beans:bean class="controller.CartController">
+		<beans:property name="cart_dao" ref="cart_dao"></beans:property>
+	</beans:bean>
+	
+	<!-- ProductController -->
+	<beans:bean class="controller.ProductController">
+		<beans:property name="product_dao" ref="product_dao"></beans:property>
+	</beans:bean>
+	
+	<!-- NoticeController -->
+	<beans:bean class="controller.NoticeController">
+		<beans:property name="notice_dao" ref="notice_dao"></beans:property>
+	</beans:bean>
+	
+	<!-- FaqController -->
+	<beans:bean class="controller.FaqController">
+		<beans:property name="faq_dao" ref="faq_dao"></beans:property>
+	</beans:bean>
+	
 </beans:beans>

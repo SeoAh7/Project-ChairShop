@@ -39,6 +39,7 @@
 		position: relative;
 		margin : auto;	
 		width: 800px;
+		min-height : 600px;
 		height: inherit;
 		background: #fff;
 		text-align: center;
@@ -67,7 +68,7 @@
 		
 		if(confirm("작성을 취소하시겠습니까?")==false)return;
 		
-		location.href="view.do?q_idx=${ vo.q_idx }&page=${ param.page }";
+		location.href="view.do?q_idx=${ vo.q_idx }&page=${ param.page }&search=${ param.search }&search_text=${ param.search_text }";
 	}
 	
 	function send(f){
@@ -108,6 +109,8 @@
 		<form>
 			<input type="hidden" name="q_idx" value="${ vo.q_idx }">
 			<input type="hidden" name="page" value="${ param.page }">
+			<input type="hidden" name="search" value="${ param.search }">
+			<input type="hidden" name="search_text" value="${ param.search_text }">
 			<div class="content_f">
 				<h2 id="title">수정하기</h2>
 				<div style="margin-bottom: 10px; margin-right:10px; text-align: right;">

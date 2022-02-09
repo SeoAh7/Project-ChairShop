@@ -1,4 +1,26 @@
 @charset "UTF-8";
+.scroll_box{
+		position : relative;
+		width: 100%;
+		box-sizing: border-box;
+	}
+	.scroll_btn{
+		position: absolute;
+		right: 50px;
+		bottom: 40px;
+		width: 40px;
+		height: 40px;
+		border : 2px solid #ddd;
+		cursor: pointer;
+		background: #fff;
+		background : url("../image/scroll_btn.png");
+		background-size : cover;
+		background-repeat : no-repeat;
+		background-position: center;
+	}
+
+
+
 
 /* footer */
 	section.footer{

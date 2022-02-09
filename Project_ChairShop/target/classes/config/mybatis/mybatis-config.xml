@@ -11,10 +11,18 @@
 	<typeAliases>
 		<typeAlias type="vo.MemberVo" alias="member"/>
 		<typeAlias type="vo.QnaVo" alias="qna"/>
+		<typeAlias type="vo.CartVo" alias="cart"/>
+		<typeAlias type="vo.ProductVo" alias="product"/>
+		<typeAlias type="vo.NoticeVo" alias="notice"/>
+		<typeAlias type="vo.FaqVo" alias="faq"/>
 	</typeAliases>
 	
 	<mappers>
+		<mapper resource="config/mybatis/mapper/notice.xml" />
 		<mapper resource="config/mybatis/mapper/member.xml" />
 		<mapper resource="config/mybatis/mapper/qna.xml" />
+		<mapper resource="config/mybatis/mapper/cart.xml" />
+		<mapper resource="config/mybatis/mapper/product.xml" />
+		<mapper resource="config/mybatis/mapper/faq.xml"/>
 	</mappers>
 </configuration>

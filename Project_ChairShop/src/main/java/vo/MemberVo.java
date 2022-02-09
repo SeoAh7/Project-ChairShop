@@ -13,6 +13,60 @@ public class MemberVo {
 	String m_grade;
 	int	   m_point;
 	
+	String m_pwd_hidden;
+	public String find_id() {
+		
+		int len = m_id.length();
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append(m_id.substring(0, len/2));
+		
+		for(int i=0; i<(len-len/2); i++) {
+			sb.append("*");
+		}
+		
+		return sb.toString();
+	}
+	String m_zipcode_str;
+	public String getM_zipcode_str() {
+		
+		m_zipcode_str = Integer.toString(m_zipcode);
+		
+		StringBuffer sb = new StringBuffer();
+		
+		for(int i=0; i<5-m_zipcode_str.length(); i++) {
+				sb.append('0');
+		}
+		sb.append(m_zipcode_str);
+		
+		return sb.toString();
+	}
+	
+	public String getM_pwd_hidden() {
+				//傈眉辨捞
+				int len = m_pwd.length();
+				StringBuffer sb = new StringBuffer();
+				
+				//规过1)
+				for(int i=0; i<len; i++) {
+					if(i<len/2)
+						sb.append(m_pwd.charAt(i));
+					else
+						sb.append("*");
+				}
+				
+				//规过2)
+				/*
+				sb.append(m_pwd.substring(0, len/2));
+				
+				for(int i=0; i<(len-len/2); i++) {
+					sb.append("*");
+				}
+				*/
+				
+			return sb.toString();
+	}
+
 	public MemberVo() {
 		// TODO Auto-generated constructor stub
 	}

@@ -29,10 +29,17 @@ insert into cs_product values(seq_chairshop_p_idx.nextVal,
 							  '',
 							  '편합니다'
 							  )
-
+insert into cs_product values(seq_chairshop_p_idx.nextVal,
+							  '게이밍용',
+							  'BD120',
+							  '100000',
+							  '',
+							  '편합니다'
+							  )
 							  
 commit
-							  							  							  							  							  							  
+delete from cs_product where p_idx=6
+			  							  							  							  							  							  						  							  							  							  							 
 select * from cs_product
 
 

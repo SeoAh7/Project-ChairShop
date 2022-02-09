@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="faq">
+    
+    <!-- 전체조회 --> 
+    <select id="faq_list" resultType="faq">
+    	 select * from cs_faq
+			order by f_idx desc 
+    </select>
+
+	<!-- 검색조건별 게시물 수 -->
+	<select id="faq_rowtotal" resultType="int">
+		select nvl(count(*),0) from cs_faq
+	</select>
+
+	<!-- 페이지별 조회 -->
+	<select id="faq_condition_list" parameterType="Map" resultType="faq">
+		select * from
+		(
+			select
+				rank() over(order by f_idx desc ) as no, 
+				q.*
+			from
+			( select * from cs_faq ) q
+		)
+		where no between #{ start } and #{ end }
+	</select>
+
+	<!-- f_idx별 조회 -->
+	<select id="faq_one" parameterType="int" resultType="faq">
+		select * from cs_faq
+			where f_idx=#{ f_idx }
+	</select>
+	
+	<!-- 추가 -->
+	<insert id="faq_insert" parameterType="faq">
+		insert into cs_faq values(seq_chairshop_f_idx.nextVal,
+						  		  #{ f_subject },
+						  		  #{ f_content },
+						  		  sysdate,
+						  		  #{ m_id },
+						  		  seq_chairshop_f_idx.currVal
+						  		  
+						)
+	</insert>
+	
+	
+	<!-- 수정 -->
+	<update id="faq_update" parameterType="faq">
+		update cs_faq set f_subject=#{ f_subject },
+						  f_content=#{ f_content },
+						  f_regdate=sysdate
+					where f_idx=#{ f_idx }
+	</update>
+	
+    <delete id="faq_delete" parameterType="int">
+    	delete from cs_faq where f_idx=#{ f_idx} 
+    </delete>
+
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

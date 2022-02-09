@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/home_slide.js"></script>
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css"> 
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/header.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/top_menu.css">
@@ -21,14 +21,33 @@
 		<%@include file="header/header.jsp" %>
 		
 		<!-- slider -->
-		<section class="slider">
-
-		</section>
+		<%@include file="slider/slider.jsp" %>
 		
 		<!-- content -->
-		<div class="content_f">
-				
-		</div>
+			<div class="content_f">
+			 	<div class="p_info">
+			 		<ul>
+			 			<li>
+				 			<img src="${ pageContext.request.contextPath }/resources/image/Assemble.png">
+				 			<h3>조립설명</h3>
+				 			<a href="#">조립영상보기</a>
+				 			<p>린백에서 판매하는 모든 DIY 상품을<br>영상을 통해 더욱 간편하게 조립하세요.</p>
+			 			</li>
+			 			<li>
+				 			<img src="${ pageContext.request.contextPath }/resources/image/use.png">
+				 			<h3>사용설명</h3>
+				 			<a href="#">사용설명보기</a>
+				 			<p>린백에서 판매하는 모든 상품의 사용 방법을<br>영상을 통해 쉽고 빠르게 확인하세요.</p>
+			 			</li>
+			 			<li>
+				 			<img src="${ pageContext.request.contextPath }/resources/image/find.png">
+				 			<h3>매장찾기</h3>
+				 			<a href="#">ALL STORE</a>
+				 			<p>린백 제품을 오프라인에서 직접 보고<br>문의 및 궁금한 사항은 각 지점 별 문의하세요.</p>
+			 			</li>
+			 		</ul>
+			 	</div>
+			</div>
 		
 		<!-- content_info -->
 		<section class="content_info">
@@ -65,6 +84,7 @@
 						</div>
 			</div>
 		</section>
+		
 		
 		<!-- footer -->
 		<%@include file="footer/footer.jsp" %>

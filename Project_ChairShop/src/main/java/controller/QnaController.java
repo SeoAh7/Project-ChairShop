@@ -36,7 +36,10 @@ public class QnaController {
 	
 	
 	@RequestMapping("/qna/list.do")
-	public String list(@RequestParam(name="page",defaultValue="1") int nowPage, Model model) {
+	public String list(	@RequestParam(name="page",defaultValue="1") int nowPage,
+						@RequestParam(name="search",defaultValue="all") String search,
+						@RequestParam(name="search_text",defaultValue="") String search_text,
+						Model model) {
 		
 		//게시물에서 가져올 범위
 		int start = (nowPage-1) * MyConstant.Qna.BLOCK_LIST + 1;
@@ -46,9 +49,39 @@ public class QnaController {
 		map.put("start", start);
 		map.put("end", end);
 		
+		if(search.equals("all")) {
+			
+			map.put("subject", search_text);
+			map.put("content", search_text);
+			map.put("id", search_text);
+			
+		}else if(search.equals("subject")) {
+			
+			map.put("subject", search_text);
+			
+		}else if(search.equals("content")) {
+			
+			map.put("content", search_text);
+			
+		}else if(search.equals("id")) {
+			
+			map.put("id", search_text);
+			
+		}
+		
+		//전체 게시물 수
 		int rowTotal = qna_dao.selectRowTotal(map);
 		
-		String pageMenu = Paging.getPaging("list.do", nowPage, rowTotal, MyConstant.Qna.BLOCK_LIST, MyConstant.Qna.BLOCK_PAGE);
+		//검색필터
+		String search_filter = String.format("search=%s&search_text=%s", search, search_text);
+		
+		String pageMenu = Paging.getPaging(	"list.do", 
+											search_filter,
+											nowPage, 
+											rowTotal, 
+											MyConstant.Qna.BLOCK_LIST, 
+											MyConstant.Qna.BLOCK_PAGE
+										  );
 		
 		List<QnaVo> list = qna_dao.selectList(map);
 		
@@ -95,11 +128,17 @@ public class QnaController {
 	}
 	
 	@RequestMapping("/qna/delete.do")
-	public String delete(int q_idx, int page, Model model) {
+	public String delete(int q_idx, 
+						 int page, 
+						 String search,
+						 String search_text,
+						 Model model) {
 		
 		int res = qna_dao.update_use_yn(q_idx);
 		
 		model.addAttribute("page", page);
+		model.addAttribute("search", search);
+		model.addAttribute("search_text", search_text);
 		
 		return "redirect:list.do";
 	}
@@ -118,7 +157,11 @@ public class QnaController {
 	}
 	
 	@RequestMapping("/qna/modify.do")
-	public String modify(QnaVo vo, int page, Model model) {
+	public String modify(QnaVo vo,
+						 int page,
+						 String search,
+						 String search_text,
+						 Model model) {
 		
 		String q_ip = request.getRemoteAddr();
 		vo.setQ_ip(q_ip);
@@ -130,6 +173,8 @@ public class QnaController {
 
 		model.addAttribute("q_idx", vo.getQ_idx());
 		model.addAttribute("page", page);
+		model.addAttribute("search", search);
+		model.addAttribute("search_text", search_text);
 		
 		return "redirect:view.do";
 	}

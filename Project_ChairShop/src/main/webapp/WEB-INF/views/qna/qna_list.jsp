@@ -17,6 +17,7 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+
 <style type="text/css">
 	
 	*{
@@ -25,9 +26,7 @@
 		text-decoration: none;
 		list-style: none;
 	}
-	a:hover{
-		text-decoration: none;
-	}
+
 	/* contents */
 	section.content{
 		position: relative;
@@ -38,14 +37,17 @@
 	div.content_f{
 		position: relative;
 		margin : auto;	
-		width: 800px;
+		width: 1000px;
+		min-height : 600px;
 		height: inherit;
 		background: #fff;
 		text-align: center;
 	}
 	#title{
+		text-align: left;
 		padding: 30px 0 30px 0;
-		font-size: 30px;
+		font-size: 32px;
+		font-weight: 500;
 	}
 	th,td{
 		height: 30px;
@@ -60,6 +62,46 @@
 		color: #333333;
 		font-weight: bold;
 	}
+	.insert_btn{
+		position: absolute;
+		right : 0;
+		top: 30px;
+		margin: 30px 0 30px 0;
+		text-align: center;
+		width: 100px;
+		height: 30px;
+		line-height: 30px; 
+		background: #fdc257;
+		font-weight: bold;
+		font-size: 15px;
+		color : #fff;
+		border: none;
+		border-radius: 10px;
+		cursor: pointer; 
+	}
+	.insert_btn:hover{
+	background: #ffa400;	
+	}
+	
+	#search_menu{
+		padding-top: 30px;
+	}
+	#search{
+		height: 33px;
+		width: 100px;
+		padding-bottom: 2px;
+	}
+	#search_text{
+		height: 33px;
+		width: 300px;
+		margin-left: 5px;
+		padding-bottom: 2px;
+	}
+	#search_btn{
+		height: 33px;
+		margin-left: 5px;
+	}
+	
 	#page_menu{
 		font-size: 14px;
 		padding: 30px;
@@ -82,7 +124,14 @@
 	.page_btn:hover{
 		color: #333333;
 	}
+	tr:first-child {
+	border-top: 3px solid #ddd;
+	border-bottom: 3px solid #ddd;
+}
 	
+	tr:last-child {
+	border-bottom: 3px solid #ddd;
+}
 </style>
 
 <script type="text/javascript">
@@ -101,6 +150,30 @@
 		//로그인되어있는 경우
 		location.href="insert_form.do";
 	}
+	
+	function search(){
+		
+		var search 		= $("#search").val();
+		var search_text = $("#search_text").val().trim();
+		
+		if(search != 'all' && search_text ==''){
+			alert('검색어를 입력하세요');
+			$("#search_text").val("");
+			$("#search_text").focus();
+			return;
+		}
+		
+		location.href="list.do?" + "&search=" + search + "&search_text=" + encodeURIComponent(search_text);
+		
+	}
+	
+	$(document).ready(function(){
+		
+		if("${ not empty param.search }"=="true"){
+			
+			$("#search").val("${ param.search }");
+		}
+	});
 
 </script>
 
@@ -113,11 +186,7 @@
 		<section class="content">
 			<div class="content_f">
 				<h1 id="title">QnA 게시판</h1>
-				<div style="margin-bottom: 10px; margin-left:10px; text-align: left;">
-					<input class="btn btn-warning" type="button" value="글쓰기" 
-						   onclick="insert_form();">
-				</div>
-		
+					<input class="insert_btn" type="button" value="글쓰기" onclick="insert_form();">
 				<!-- 게시판내용 -->
 				<table class="table">
 					<!-- 제목 -->
@@ -155,7 +224,7 @@
 							
 							<!-- 삭제되지 않은 게시물이면 -->
 							<c:if test="${ vo.q_use_yn eq 'y' }">
-								<a class="q_subject" href="view.do?q_idx=${ vo.q_idx }&page=${ empty param.page ? 1 : param.page }">
+								<a class="q_subject" href="view.do?q_idx=${ vo.q_idx }&page=${ empty param.page ? 1 : param.page }&search=${ empty param.search ? 'all' : param.search }&search_text=${ param.search_text }">
 									${ vo.q_subject }
 									<c:if test="${ fn:substring(vo.q_regdate,0,10) eq vo.today }">
 										<img src="${ pageContext.request.contextPath }/resources/image/new.png">
@@ -180,15 +249,25 @@
 							<td>${ fn:substring(vo.q_regdate,0,10) }</td>
 						</tr>
 					</c:forEach>
-					
-					<tr>
-						<td colspan="4">
-							<div id="page_menu">
-								${ pageMenu }
-							</div>
-						</td>
-					</tr>
 				</table>
+				
+				
+		
+				<div id="search_menu">
+					<select id="search">
+						<option value="all">전체</option>
+						<option value="subject">제목</option>
+						<option value="content">내용</option>
+						<option value="id">작성자ID</option>
+					</select>
+					<input id="search_text" value="${ param.search_text }">
+					<input id="search_btn" class="btn btn-warning" type="button" value="검색"
+						   onclick="search();">
+				</div>
+		
+				<div id="page_menu">
+					${ pageMenu }
+				</div>
 			</div>
 		</section>
 

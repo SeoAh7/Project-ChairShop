@@ -277,14 +277,14 @@
 		
 		<!-- contents -->
 		<section class="content">
-			<form>
+			<form action="javascript:alert('회원가입이 완료되었습니다.');">
 			<div class="content_f">
 				<h1>회원가입</h1>
 				<div class="user_form">
 					<h2>기본정보</h2>
 					<ul>
 						<li><span class="head">이름</span><input name="m_name" type="text"></li>
-						<li><span class="head">아이디</span> <input name="m_id" type="text" class="id" placeholder="영문소문자/숫자,4~16자">
+						<li><span class="head">아이디</span> <input name="m_id" type="text" class="id" placeholder="영문 소문자/숫자,4~16자">
 							<span id="m_id_message"></span>
 						</li>
 						<li><span class="head">비밀번호</span> <input style="width: 65%;" id="m_pwd" name="m_pwd" type="password" placeholder="영문 소문자/숫자 조합,4자~16자">

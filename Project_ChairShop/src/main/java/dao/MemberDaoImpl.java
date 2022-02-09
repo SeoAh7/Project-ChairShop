@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -23,13 +24,13 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public MemberVo selectOne(int m_idx) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("member.member_one", m_idx);
+		return sqlSession.selectOne("member.member_one_m_idx", m_idx);
 	}
 
 	@Override
 	public MemberVo selectOne(String m_id) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("member.member_one", m_id);
+		return sqlSession.selectOne("member.member_one_m_id", m_id);
 	}
 
 	@Override
@@ -49,6 +50,33 @@ public class MemberDaoImpl implements MemberDao{
 		// TODO Auto-generated method stub
 		return sqlSession.update("member.member_update", vo);
 	}
+	
+	@Override
+	public int update_pwd(MemberVo vo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("member.member_update_pwd", vo);
+	}
+	
+
+	@Override
+	public MemberVo selectOne(MemberVo vo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("member.member_one_vo", vo);
+	}
+
+	@Override
+	public int selectRowTotal(Map map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("member.member_rowtotal",map);
+	}
+
+	@Override
+	public List<MemberVo> selectList(Map map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("member.member_condition_list",map);
+	}
+
+	
 
 	
 	

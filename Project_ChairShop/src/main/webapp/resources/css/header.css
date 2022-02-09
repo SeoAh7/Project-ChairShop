@@ -1,6 +1,12 @@
 @charset "UTF-8";
 
 	/* header */
+	*{
+		text-decoration: none;
+	}
+	a:hover{
+		text-decoration: none;
+	}
 	header.header{
 		position: fixed;
 		top: 0;
@@ -46,12 +52,36 @@
 	div.header_center>ul>li{
 		font-size : 19px;
 		width: 150px;
+		text-align: center;
 	}
 	div.header_center>ul>li>a{
 		color: #000;
 		font-family: '맑은고딕';
 		display: block;
+		text-decoration: none;
 	}
+	
+	/* 하단메뉴 */
+	div.header_center>ul>li>ul>li{
+		width: inherit;
+		height: 60px;
+		line-height: 60px;
+		background: #fff;
+		display: none;
+	}
+	div.header_center>ul>li>ul>li:last-child{
+		border: none;
+	}
+	div.header_center>ul>li>ul>li>a{
+		display: block;
+		color: #000;
+	}
+	div.header_center>ul>li>ul>li>a:hover{
+		color: #fdc257;
+	}
+	
+	
+	
 	div.header_right{
 		width: 20%;
 		text-align: right;

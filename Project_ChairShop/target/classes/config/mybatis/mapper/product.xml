@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+    
+    <select id="product_list" resultType="product">
+    	select * from cs_product
+    </select>
+     
+   <!--  category별 상품조회 -->
+   <select id="product_category_list" parameterType="String" resultType="vo.ProductVo"> 
+        select * from cs_product where category=#{category} 
+   </select>
+   
+   <!-- p_idx에 대한 상품정보 1건 -->
+   <select id="product_view"  parameterType="int"  resultType="vo.ProductVo">
+        select * from cs_product where p_idx=#{p_idx}
+   </select>
+   
+   <insert id="product_insert" parameterType="product">
+		insert into cs_product values(seq_chairshop_p_idx.nextVal,
+			#{category},
+			#{p_name},
+			#{p_price},
+			#{p_img},
+			#{p_content}
+		)
+   </insert>
+</mapper>
+

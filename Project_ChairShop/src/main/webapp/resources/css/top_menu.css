@@ -27,3 +27,21 @@
 		color: #000;
 	}
 	
+	input.btn_register{
+		width: 100px;
+		height: 25px;
+		line-height: 25px;
+	}
+	 
+	input.btn_order_manager{
+		width: 100px;
+		height: 25px;
+		line-height: 25px;
+	} 
+	 
+	input.btn_item_status{
+		width: 100px;
+		height: 25px;
+		line-height: 25px;
+	}
+	
