@@ -1,8 +1,10 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.ui.Model;
 
 import vo.ProductVo;
 
@@ -61,4 +63,20 @@ public class ProductDaoImpl implements ProductDao {
 		return sqlSession.selectList("product.product_list");
 	}
 
+
+	@Override
+	public List<ProductVo> selectList(Map map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("product.product_search_list", map);
+	}
+
+
+	@Override
+	public ProductVo selectOne(String p_name) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("product.product_one_name", p_name);
+	}
+
+	
+	
 }

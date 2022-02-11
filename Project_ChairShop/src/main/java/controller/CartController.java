@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CartDao;
+import dao.ProductDao;
 import vo.CartVo;
 import vo.MemberVo;
+import vo.ProductVo;
 
 @Controller
 public class CartController {
@@ -23,7 +25,12 @@ public class CartController {
 	HttpSession session;
 	
 	CartDao cart_dao;
+	ProductDao product_dao;
 	
+	public void setProduct_dao(ProductDao product_dao) {
+		this.product_dao = product_dao;
+	}
+
 	public void setCart_dao(CartDao cart_dao) {
 		this.cart_dao = cart_dao;
 	}
@@ -58,7 +65,13 @@ public class CartController {
 		paramVo.setP_idx(p_idx);
 		paramVo.setM_idx(m_idx);
 		
+		ProductVo proVo = product_dao.selectOne(p_idx);
+		
+		paramVo.setP_name(proVo.getP_name());
+		paramVo.setP_price(proVo.getP_price());
+		
 		CartVo vo  = cart_dao.selectOne(paramVo);
+		
 		
 		Map map = new HashedMap();
 		

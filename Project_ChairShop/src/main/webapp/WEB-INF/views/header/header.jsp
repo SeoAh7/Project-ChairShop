@@ -10,9 +10,11 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/menu_slidedown.js"></script>
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/header.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/top_menu.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/footer.css">
+<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/p_order_list.css">
 <script type="text/javascript">
 
 	function logout() {
@@ -23,17 +25,6 @@
 		
 	}
 
-	function order_check() {
-		
-		if('${ empty user}'=='true'){
-			if(confirm('주문정보 조회는 로그인 후에 가능합니다.\r\n로그인하시겠습니까?')==false) return;
-			location.href='${ pageContext.request.contextPath }/member/login_form.do';
-		}else{
-			
-			location.href='${ pageContext.request.contextPath }/order/order_list.do';
-		}
-		
-	}
 
 	function cart_list() {
 		
@@ -47,9 +38,9 @@
 		
 	}
 	
-	function order_check() {
+	function my_page() {
 		if('${ empty user }'=='true'){
-			if(confirm('주문조회는 로그인 후에 가능합니다. \r\n로그인하시겠습니까?')==false) return;
+			if(confirm('마이페이지는 로그인 후에 이용 가능합니다.\r\n로그인하시겠습니까?')==false) return;
 			location.href='${ pageContext.request.contextPath }/member/login_form.do';
 		}
 		else{
@@ -57,6 +48,43 @@
 		}
 		
 	}
+	//----------------------------------------------------------------------	
+	$(document).ready(function() {
+		$("#search_product").keypress(function(e) {
+			if(e.keyCode == 13){
+				 search(); 
+			}
+		});
+	});
+	//----------------------------------------------------------------------
+	
+	
+	function search() {
+		
+		var search_product = document.getElementById('search_product').value.trim();
+		
+		if(search_product == ''){
+			alert('검색어를 입력해주세요');
+			document.getElementById('search_product').value =='';
+			document.getElementById('search_product').focus();
+			return;
+		}
+			
+		location.href = '${pageContext.request.contextPath}/product/product_list.do?category=&search_product=' + search_product;
+	}
+	
+	function admin_page() {
+		$(".admin_page").css("display","flex");
+		$(".user_page").css("display","none");
+	}
+	function user_page() {
+		$(".admin_page").css("display","none");
+		$(".user_page").css("display","flex");
+	}
+
+
+	
+	
 </script>
 
 </head>
@@ -65,10 +93,9 @@
 	<section class="top_menu">
 		<div class="top_menu_f">
 			<ul><c:if test="${ user.m_grade eq '관리자' }">
-				<li><input class="btn_register" type="button" value="상품등록" onclick="location.href='${ pageContext.request.contextPath }/product/product_insert_form.do'"></li>
-				<li><input class="btn_order_manager" type="button" value="주문접수" onclick="location.href='${ pageContext.request.contextPath }/order/order_confirm.do'"></li>
-				<li><input class="btn_item_status" type="button" value="재고관리" onclick="location.href='${ pageContext.request.contextPath }/product/product_manage.do'"></li>
-				<li><input class="btn_item_status" type="button" value="회원관리" onclick="location.href='${ pageContext.request.contextPath }/member/list.do'"></li>
+				
+				<li class="admin"><a href="#" onclick="admin_page();">관리자페이지</a></li>
+				<li class="user"><a href="#" onclick="user_page();">회원페이지</a></li>
 				</c:if>
 				<c:if test="${ not empty user }">
 					<li>
@@ -80,7 +107,7 @@
 					<li><a href="${ pageContext.request.contextPath }/member/login_form.do">로그인</a></li>
 					<li><a href="${ pageContext.request.contextPath }/member/register_form.do">회원가입</a></li>
 				</c:if>
-				<li><a href="#" onclick="order_check();">주문조회</a></li>
+				<li><a href="#" onclick="my_page();">마이페이지</a></li>
 				<li><a href="#" onclick="cart_list();">장바구니</a></li>
 			</ul>
 		</div> 
@@ -92,17 +119,17 @@
 			</a>
 		</div>
 		<div class="header_center">
-			<ul>
-				<li><a href="#">Company</a></li>
-				<li><a href="#">Product</a>
+			<ul class="user_page">
+				<li><a href="#">회사연혁</a></li>
+				<li><a href="#">상품리스트</a>
 					<ul>
-						<li><a href="${ pageContext.request.contextPath }/product/product_list.do?category=">전체보기</a></li>
-						<li><a href="${ pageContext.request.contextPath }/product/product_list.do?category=office002">사무용의자</a></li>
-						<li><a href="${ pageContext.request.contextPath }/product/product_list.do?category=kids001">유아용의자</a></li>
-						<li><a href="${ pageContext.request.contextPath }/product/product_list.do?category=gaming003">게이밍용의자</a></li>
+						<li><a href="${ pageContext.request.contextPath }/product/product_list.do?category=&search_product=">전체보기</a></li>
+						<li><a href="${ pageContext.request.contextPath }/product/product_list.do?category=office002&search_product=">사무용의자</a></li>
+						<li><a href="${ pageContext.request.contextPath }/product/product_list.do?category=kids001&search_product=">유아용의자</a></li>
+						<li><a href="${ pageContext.request.contextPath }/product/product_list.do?category=gaming003&search_product=">게이밍용의자</a></li>
 					</ul>
 				</li>
-				<li><a href="#">Community</a>
+				<li><a href="#">커뮤니티</a>
 					<ul>
 						<li><a href="#">이벤트</a></li>
 						<li><a href="#">리뷰</a></li>
@@ -111,7 +138,7 @@
 						<li><a href="#">사용설명동영상</a></li>
 					</ul>
 				</li>
-				<li><a href="#">Customer Center</a>
+				<li><a href="#">고객센터</a>
 					<ul>
 						<li><a href="${ pageContext.request.contextPath }/notice/list.do">공지사항</a></li>
 						<li><a href="${ pageContext.request.contextPath }/faq/list.do">FAQ</a></li>
@@ -120,9 +147,16 @@
 					</ul>
 				</li>
 			</ul>
+			<ul class="admin_page">
+					<li><a href="${ pageContext.request.contextPath }/product/product_insert_form.do">상품등록</a></li>
+					<li><a href="${ pageContext.request.contextPath }/order/order_confirm.do">주문접수</a></li>
+					<li><a href="${ pageContext.request.contextPath }/admin/product_remain_list.do">재고관리</a></li>
+					<li><a href="${ pageContext.request.contextPath }/admin/member_list.do">회원목록</a></li>
+			</ul>
 		</div>
 		<div class="header_right">
-			<input type="text">
+			<input type="text" id="search_product">
+			<input type="button" class="btn_search"  onclick="search();">
 		</div>
 	</div>
 </header>

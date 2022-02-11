@@ -22,26 +22,46 @@
 		line-height: 40px;
 		font-size: 14px;
 	}
+	div.top_menu_f>ul>li.admin{
+		width: 100px;
+	    height: 30px;
+	    margin-top: 5px;
+	    background: #dfd6c5;
+	    text-align: center;
+	    line-height: 30px;
+	    border-radius: 15px;
+	    font-weight: bold;
+	}
+	div.top_menu_f>ul>li.admin:hover{
+		background: #68655f;
+	}
+	div.top_menu_f>ul>li.admin:hover>a{
+		color: #fff;
+	}
+	
+	div.top_menu_f>ul>li.user{
+		width: 100px;
+	    height: 30px;
+	    margin-top: 5px;
+	    background: #dfd6c5;
+	    text-align: center;
+	    line-height: 30px;
+	    border-radius: 15px;
+	    font-weight: bold;
+	}
+	div.top_menu_f>ul>li.user:hover>a{
+		color: #fff;
+	}
+	div.top_menu_f>ul>li.user:hover{
+		background: #68655f;
+		color: #fff;
+	}
+	
 	div.top_menu_f>ul>li>a{
 		display: block;
 		color: #000;
+		text-decoration: none;
 	}
 	
-	input.btn_register{
-		width: 100px;
-		height: 25px;
-		line-height: 25px;
-	}
-	 
-	input.btn_order_manager{
-		width: 100px;
-		height: 25px;
-		line-height: 25px;
-	} 
-	 
-	input.btn_item_status{
-		width: 100px;
-		height: 25px;
-		line-height: 25px;
-	}
+	
 	

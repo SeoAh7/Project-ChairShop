@@ -7,6 +7,7 @@
 		position: relative;
 		width: 100%;
 		height: auto;
+		padding-top : 250px !important;
 		background: #fff;
 		box-sizing: border-box;
 	}
@@ -14,10 +15,15 @@
 	div.content_f{
 		position: relative;
 		margin : auto;	
-		width: 1000px;
+		width: 1000px !important;
 		height: auto;
 		background: #fff;
 		text-align: center;
+	}
+	div.content_f h3{
+		text-align: right; 
+		color: #666;
+    	font-size: 16px;
 	}
 	
 	div.top_text{
@@ -67,9 +73,29 @@
 		font-weight: bold;
 		text-align: center;
 	}
-	
+	/* 메뉴상단 */
+	div.product_cart_list>ul:first-child>li:nth-child(1){
+		width: 5%;
+	}
+	div.product_cart_list>ul:first-child>li:nth-child(1)>input{
+		width: 18px;
+		height: 18px;
+	}
+	div.product_cart_list>ul:first-child>li:nth-child(2){
+		width: 65%; 
+	}
+	div.product_cart_list>ul:first-child>li:nth-child(3){
+		width: 15%;
+	}
+
+	div.product_cart_list>ul:first-child>li:nth-child(4){
+		width: 15%;
+	}
+	/* ul.상품창 */
 	div.product_cart_list>ul>li.box{
 		width: 5%;
+		height: 100px;
+		line-height: 100px;
 	}
 	div.product_cart_list>ul>li.box>input{
 		width: 18px;
@@ -77,13 +103,20 @@
 	}
 	div.product_cart_list>ul>li.p_info{
 		width: 65%; 
+		height: 100px;
+		line-height: 100px;
+		display: flex;
 	}
 	div.product_cart_list>ul>li.p_count{
 		width: 15%;
+		height: 100px;
+		line-height: 100px;
 	}
 
 	div.product_cart_list>ul>li.o_price{
 		width: 15%;
+		height: 100px;
+		line-height: 100px;
 	}
 	input.p_delete{
 		position : absolute;
@@ -94,6 +127,17 @@
 		border: 1px solid #d1d1d1;
 		cursor: pointer;
 		
+	}
+	
+	li.p_info>img{
+		padding-left: 150px;
+		width: 100px;
+		height: 100px;
+	}
+	li.p_info>span{
+		height: 100px;
+		line-height: 100px;
+		padding-left: 50px;
 	}
 	input.correct{
 		text-align: center;
@@ -125,7 +169,7 @@
 	}
 	div.product_total_price>ul{
 		display: flex;
-		padding: 63px 0;
+		padding: 41px 0 63px 0;
 	}
 	div.product_total_price>ul>li{
 		width: 14%;

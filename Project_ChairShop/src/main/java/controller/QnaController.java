@@ -108,9 +108,15 @@ public class QnaController {
 	}
 	
 	@RequestMapping("/qna/insert.do")
-	public String insert(QnaVo vo) {
+	public String insert(QnaVo vo, Model model) {
 		
 		MemberVo user = (MemberVo) session.getAttribute("user");
+		if(user==null) {
+			
+			model.addAttribute("reason", "logout");
+			
+			return "redirect:../member/login_form.do";
+		}
 		
 		vo.setM_idx(user.getM_idx());
 		vo.setM_id(user.getM_id());
@@ -163,6 +169,14 @@ public class QnaController {
 						 String search_text,
 						 Model model) {
 		
+		MemberVo user = (MemberVo) session.getAttribute("user");
+		if(user==null) {
+			
+			model.addAttribute("reason", "logout");
+			
+			return "redirect:../member/login_form.do";
+		}
+		
 		String q_ip = request.getRemoteAddr();
 		vo.setQ_ip(q_ip);
 		
@@ -184,6 +198,7 @@ public class QnaController {
 		
 		QnaVo vo = qna_dao.selectOne(q_idx);
 		
+		
 		model.addAttribute("vo",vo);
 		
 		return "qna/qna_reply_form";
@@ -193,9 +208,17 @@ public class QnaController {
 	public String reply(QnaVo vo, int page, Model model) {
 		
 		MemberVo user = (MemberVo) session.getAttribute("user");
+		if(user==null) {
+			
+			model.addAttribute("reason", "logout");
+			
+			return "redirect:../member/login_form.do";
+		}
 		
 		vo.setM_idx(user.getM_idx());
-		vo.setM_id(user.getM_id());
+		
+		//관리자만 답변 가능하기 때문에 id가 아닌 '관리자'로 표시
+		vo.setM_id("관리자");
 		
 		String q_ip = request.getRemoteAddr();
 		vo.setQ_ip(q_ip);

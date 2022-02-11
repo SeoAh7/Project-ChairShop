@@ -1,6 +1,36 @@
 @charset "UTF-8";
 
-
 table {
 	margin: auto;
+	height: 500px;
+	margin-bottom: 50px;
+
+}
+section.content{
+	padding-top: 230px !important;
+	
+}
+
+div.content_f{
+		position: relative;
+		margin : auto;	
+		width: 600px !important;
+		height: auto;
+		background: #fff;
+		box-sizing: border-box;
+		padding-bottom: 50px;
+}
+		
+
+
+div.content_f>h1{
+	
+	margin-bottom: 50px;
+}
+
+TEXTAREA{
+	resize: none;
+	width: 99%;
+	height: 200px;
+	border: none;
 }

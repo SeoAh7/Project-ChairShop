@@ -9,10 +9,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/footer.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/header.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/top_menu.css">
 <script type="text/javascript">
 
 	var regular_tel = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
@@ -33,13 +29,6 @@
 				
 				if(m_tel==''){
 					alert('전화번호를 입력해 주세요');
-					m_tel.value='';
-					document.getElementById('m_tel').focus();
-					return;
-				}
-				
-				if(regular_tel.test(m_tel)==false){
-					alert('전화번호를 확인해 주세요');
 					m_tel.value='';
 					document.getElementById('m_tel').focus();
 					return;
@@ -68,31 +57,6 @@
 		});
 	
 	});
-
-	function order_check() {
-		
-		if('${ empty user}'=='true'){
-			if(confirm('주문정보 조회는 로그인 후에 가능합니다.\r\n로그인하시겠습니까?')==false) return;
-			location.href='login_form.do';
-		}else{
-			
-			location.href='order/order_list.do';
-		}
-		
-	}
-	
-	function cart_list() {
-		
-		if('${ empty user}'=='true'){
-			if(confirm('장바구니 조회는 로그인 후에 가능합니다.\r\n로그인하시겠습니까?')==false) return;
-			location.href='login_form.do';
-		}else{
-			
-			location.href='cart/cart_list.do';
-		}
-		
-	}
-	
 	
 </script>
 
@@ -105,7 +69,7 @@
 		width: 100%;
 		height: 600px;
 		background: #fff;
-		padding-top:170px;
+		padding-top:170px !important;
 	}
 	div.content_f{
 		position: relative;

@@ -31,14 +31,14 @@
 	/* contents */
 	section.content{
 		position: relative;
-		padding-top: 170px;
+		padding-top: 170px !important;
 		width: 100%;
 		height: auto;
 	}
 	div.content_f{
 		position: relative;
 		margin : auto;	
-		width: 800px;
+		width: 800px !important;
 		min-height : 600px;
 		background: #fff;
 		text-align: center;
@@ -62,7 +62,6 @@
 		
 	}
 	
-	
 </script>
 
 </head>
@@ -85,19 +84,15 @@
 					</tr>
 					<tr>
 						<th>ID</th>
-						<td>
-							<!-- 어차피 admin만 표출 -->
-							<c:if test="${ vo.m_id eq 'admin' }">
-								관리자
-							</c:if>
-							<c:if test="${ vo.m_id ne 'admin' }">
-								${ vo.m_id_hidden }
-							</c:if>
-						</td>
+						<td>${ vo.m_id }</td>
 					</tr>
 					<tr>
 						<th>작성일자</th>
 						<td>${ fn:substring(vo.f_regdate,0,10) }</td>
+					</tr>
+					<tr>
+						<th>조회수</th>
+						<td>${ vo.f_readhit }</td>
 					</tr>
 					<tr>
 						<td colspan="2" style="padding: 40px; padding-left: 60px; height: 300px;">

@@ -9,10 +9,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/footer.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/header.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/top_menu.css">
 <script type="text/javascript">
 
 	var regular_tel = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
@@ -102,7 +98,7 @@
 		width: 100%;
 		height: 600px;
 		background: #fff;
-		padding-top:170px;
+		padding-top:170px !important;
 	}
 	div.content_f{
 		position: relative;

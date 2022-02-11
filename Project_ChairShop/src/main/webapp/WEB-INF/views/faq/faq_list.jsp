@@ -16,7 +16,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
 
 <style type="text/css">
 	
@@ -30,14 +29,14 @@
 	/* contents */
 	section.content{
 		position: relative;
-		padding-top: 170px;
+		padding-top: 170px !important;
 		width: 100%;
 		height: auto;
 	}
 	div.content_f{
 		position: relative;
 		margin : auto;	
-		width: 1000px;
+		width: 1000px !important;
 		min-height : 600px;
 		height: inherit;
 		background: #fff;
@@ -133,6 +132,13 @@
 		location.href="insert_form.do";
 	}
 
+	window.onpageshow = function (event) {
+		
+		if ( event.persisted || (window.performance && window.performance.navigation.type == 2)){
+			location.reload();
+		}
+	}
+
 </script>
 
 </head>
@@ -144,15 +150,18 @@
 		<section class="content">
 			<div class="content_f">
 				<h1 id="title">FAQ</h1>
+				<c:if test="${ user.m_grade eq '관리자' }">
 					<input class="insert_btn" type="button" value="글쓰기" onclick="insert_form();">
+				</c:if>
 				<!-- 게시판내용 -->
 				<table class="table">
 					<!-- 제목 -->
 					<tr>
 						<th width="10%">번호</th>
 						<th width="50%">제목</th>
-						<th width="20%">ID</th>
-						<th width="20%">작성일자</th>
+						<th width="15%">ID</th>
+						<th width="15%">작성일자</th>
+						<th width="10%">조회수</th>
 					</tr>
 					
 					<!-- 데이터가 없는 경우 -->
@@ -172,14 +181,10 @@
 						        <a href="${ pageContext.request.contextPath }/faq/view.do?f_idx=${vo.f_idx}">${ vo.f_subject }</a>
 							</td>
 							<td>
-								<c:if test="${ vo.m_id eq 'admin' }">
-									관리자
-								</c:if>
-								<%-- <c:if test="${ vo.m_id ne 'admin' }">
-									${ vo.m_id_hidden }
-								</c:if> --%>
+								${ vo.m_id }
 							</td>
 							<td>${ fn:substring(vo.f_regdate,0,10) }</td>
+							<td>${ vo.f_readhit }</td>
 						</tr>
 					</c:forEach>
 				</table>

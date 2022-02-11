@@ -6,11 +6,6 @@
 <meta charset="UTF-8">
 
 <title>Insert title here</title>
-
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/footer.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/header.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/top_menu.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/product_insert_form.css">
 
 <script type="text/javascript">
@@ -69,47 +64,48 @@ function send(f){
 		<!-- contents -->
 		<section class="content">
 			<div class="content_f">
-		<form method="POST" enctype="multipart/form-data"> 
-		<table align="center" width="600" border="1" 
-		    style="border-collapse:collapse;font-size:8pt" bordercolor="navy"
-		    cellpadding="2" cellspacing="0">
-		    <tr>
-		        <td>상품Category</td>
-		        <td>
-		        	<select name="category">
-		        		<option value="">카테고리 선택</option>
-		        		<option value="kids001">유아용</option>
-		        		<option value="office002">사무용</option>
-		        		<option value="gaming003">게이밍용</option>
-		        	</select>
-		        </td>
-		    </tr>
-		    <tr>
-		        <td>상품명</td>
-		        <td><input name="p_name" type="text" ></td>
-		    </tr>
-		    <tr>
-		        <td>상품가격</td>
-		        <td><input name="p_price" type="text" ></td>
-		    </tr>
-		    <tr>
-		        <td>상품설명</td>
-		        <td>
-		        	<TEXTAREA name="p_content" rows="5" cols="50" style="resize: none; width: 99%; border: none;"></TEXTAREA>       	
-		        </td>
-		    </tr>
-		    <tr>
-		        <td>상품사진</td>
-		        <td><input type="file" name="p_image">
-		    </tr>
-		    <tr>
-		        <td colspan="2" align="center">
-		            <input type="button" value="등록" onclick="send(this.form);" >
-		            <input type="reset" value="Clear" >
-		        </td>
-		    </tr>    
-		</table>
-		</form>
+				<h1>상품등록</h1>
+				<form method="POST" enctype="multipart/form-data"> 
+					<table align="center" width="600" border="1" 
+					    style="border-collapse:collapse;font-size:8pt" bordercolor="navy"
+					    cellpadding="2" cellspacing="0">
+					    <tr>
+					        <td>상품Category</td>
+					        <td>
+					        	<select name="category">
+					        		<option value="">카테고리 선택</option>
+					        		<option value="kids001">유아용</option>
+					        		<option value="office002">사무용</option>
+					        		<option value="gaming003">게이밍용</option>
+					        	</select>
+					        </td>
+					    </tr>
+					    <tr>
+					        <td>상품명</td>
+					        <td><input name="p_name" type="text" ></td>
+					    </tr>
+					    <tr>
+					        <td>상품가격</td>
+					        <td><input name="p_price" type="text" ></td>
+					    </tr>
+					    <tr>
+					        <td>상품설명</td>
+					        <td>
+					        	<TEXTAREA name="p_content" rows="5" cols="50"></TEXTAREA>       	
+					        </td>
+					    </tr>
+					    <tr>
+					        <td>상품사진</td>
+					        <td><input type="file" name="p_image">
+					    </tr>
+					    <tr>
+					        <td colspan="2" align="center">
+					            <input type="button" value="등록" onclick="send(this.form);" >
+					            <input type="reset" value="Clear" >
+					        </td>
+					    </tr>    
+					</table>	
+				</form>
 			</div>
 			
 		</section>

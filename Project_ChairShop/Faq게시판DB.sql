@@ -1,7 +1,7 @@
 /*
  
 create sequence seq_chairshop_f_idx;
-
+drop table cs_faq
 --테이블 생성
 create table cs_faq
 (
@@ -10,7 +10,7 @@ create table cs_faq
 	f_content		clob			not null,	--내용
 	f_regdate		date,						--등록일자
 	m_id 			varchar2(200),				--아이디
-	f_readhit		int							--조회수
+	f_readhit		int				default 0	--조회수
 )
 
 --기본키 
@@ -23,7 +23,7 @@ insert into cs_faq values(seq_chairshop_f_idx.nextVal,
 							'FAQ내용',
 							sysdate,
 							'admin',
-							0
+							default
 							);
 							
 							commit

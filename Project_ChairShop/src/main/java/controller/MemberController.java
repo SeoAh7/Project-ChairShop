@@ -35,7 +35,7 @@ public class MemberController {
 		this.member_dao = member_dao;
 	}
 	
-	@RequestMapping("/member/list.do")
+	@RequestMapping("/admin/member_list.do")
 	public String list(@RequestParam(name="page",defaultValue ="1" ) int nowPage,
 					   @RequestParam(name="search",defaultValue="all") String search,
 					   @RequestParam(name="search_text",defaultValue="") String search_text,
@@ -83,7 +83,7 @@ public class MemberController {
 		model.addAttribute("list",list);
 		model.addAttribute("pageMenu",pageMenu);
 		
-		return "member/member_list";
+		return "admin/member_list";
 	}
 	
 	@RequestMapping("/member/login_form.do")
@@ -102,6 +102,7 @@ public class MemberController {
 		if(user==null) {
 			
 			model.addAttribute("reason", "fail_id");
+			model.addAttribute("url", url);
 			
 			return "redirect:login_form.do";
 		}
@@ -109,6 +110,7 @@ public class MemberController {
 		if(user.getM_pwd().equals(vo.getM_pwd()) == false) {
 			
 			model.addAttribute("reason", "fail_pwd");
+			model.addAttribute("url", url);
 			
 			return "redirect:login_form.do";
 			
@@ -244,21 +246,26 @@ public class MemberController {
 		
 		int res = member_dao.update_pwd(reset_vo);
 		
+		session.removeAttribute("user");
+		
 		model.addAttribute("reason", "reset_pwd");
 		
 		return "redirect:login_form.do";
 	}
 	
 	//삭제하기
-		@RequestMapping("/member/delete.do")
-		public String delete(int m_idx,int page,String search,String search_text,Model model) {
+		@RequestMapping("/admin/delete.do")
+		public String delete(int m_idx,Model model) {
 			
 			int res = member_dao.delete(m_idx);
-			model.addAttribute("page", page);
-			model.addAttribute("search", search);
-			model.addAttribute("search_text", search_text);
 			
-			return "redirect:member_manage.do";
+			/*
+			 * model.addAttribute("page", page); model.addAttribute("search", search);
+			 * model.addAttribute("search_text", search_text);
+			 */
+			 
+			
+			return "redirect:member_list.do";
 		}
 		
 		//수정폼 띄우기
@@ -266,7 +273,6 @@ public class MemberController {
 		public String modify_form(int m_idx, Model model) {
 			
 			MemberVo vo = member_dao.selectOne(m_idx);
-			System.out.println(vo.getM_zipcode_str());
 			model.addAttribute("vo", vo);
 			
 			return "member/modify_form";
@@ -274,7 +280,7 @@ public class MemberController {
 		//회원이 마이페이지에서 수정하기
 		@RequestMapping("/member/modify.do")
 		public String modify(MemberVo vo) {
-					
+			
 			String m_ip = request.getRemoteAddr();
 			vo.setM_ip(m_ip);
 					
@@ -302,7 +308,6 @@ public class MemberController {
 		
 		}
 		
-	
-	
+
 	
 }

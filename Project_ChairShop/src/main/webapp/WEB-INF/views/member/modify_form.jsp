@@ -24,14 +24,14 @@
 	/* contents */
 	section.content{
 		position: relative;
-		padding-top: 170px;
+		padding-top: 170px !important;
 		width: 100%;
 		height: auto;
 	}
 	div.content_f{
 		position: relative;
 		margin : auto;	
-		width: 800px;
+		width: 800px !important;
 		height: inherit;
 		background: #fff;
 		text-align: center;
@@ -254,7 +254,7 @@
 				</div>
 				
 				<div class="y_n">
-					<input type="button" class="cancel" value="취소하기" onclick="location.href='../'">
+					<input type="button" class="cancel" value="취소하기" onclick="location.href='../product/p_order_list.do'">
 					<input type="button" class="join" value="변경하기" onclick="modify(this.form);">
 				</div>
 			</div>

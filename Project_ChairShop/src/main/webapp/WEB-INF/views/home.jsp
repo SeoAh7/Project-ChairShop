@@ -9,12 +9,25 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/home_slide.js"></script>
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css"> 
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/header.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/top_menu.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/footer.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/home_content.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/slider.css">
+<script type="text/javascript">
+
+
+   $(document).ready(function(){
+       
+        setTimeout(show_message,100);
+        
+   });
+   
+   function show_message(){
+     if("${ param.reason eq 'not_admin'}"=="true"){
+        
+        alert('권한이 없습니다.');
+     }   
+   }
+
+</script>
 </head>
 <div class="wrap"> 
 		<!-- header -->

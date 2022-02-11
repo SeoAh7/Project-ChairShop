@@ -2,7 +2,9 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -39,9 +41,9 @@ public class ProductController {
 	  //전체 목록보기
 	  
 	  @RequestMapping("/product/product_list.do") 
-	  public String list(String category, Model model) {
+	  public String list(String category, String search_product, Model model) {
 		  
-		  if(category.equals("")==true) {
+		  if(category.equals("")==true && search_product.equals("")==true) {
 			  List<ProductVo> list = product_dao.selectList();
 			  
 			  int count = list.size();
@@ -49,7 +51,7 @@ public class ProductController {
 			  model.addAttribute("list", list); 
 			  model.addAttribute("count", count);
 		  }
-		  else {
+		  else if(category.equals("")!=true && search_product.equals("")==true){
 			  List<ProductVo> list = product_dao.selectList(category);
 			  
 			  int count = list.size();
@@ -57,6 +59,17 @@ public class ProductController {
 			  model.addAttribute("list", list); 
 			  model.addAttribute("count", count);
 			  
+		  }else {
+			  Map map = new HashMap();
+			  
+			  map.put("search_product", search_product);
+			  
+			  List<ProductVo> list = product_dao.selectList(map);
+			  
+			  int count = list.size();
+			  
+			  model.addAttribute("list", list); 
+			  model.addAttribute("count", count);
 		  }
 		   
 		  return "product/product_list";
@@ -64,13 +77,13 @@ public class ProductController {
 	  }//end list
 //------------------------------------------------------------------------
 	@RequestMapping("/product/product_view.do")
-	public String view(/* int p_idx, Model model */) {
+	public String view(int p_idx, Model model ) {
 
 		// p_idx에 해당되는 상품정보 1건 얻어오기
-		//ProductVo vo = product_dao.selectOne(p_idx);
+		ProductVo vo = product_dao.selectOne(p_idx);
 
 		// request binding
-		//model.addAttribute("vo", vo);
+		model.addAttribute("vo", vo);
 
 		return "product/product_view";
 	}// end view
@@ -113,6 +126,7 @@ public class ProductController {
 		int res = product_dao.insert(vo);
 			
 		model.addAttribute("category", vo.getCategory());
+		model.addAttribute("search_product", "");
 
 		return "redirect:product_list.do";
 
@@ -133,7 +147,8 @@ public class ProductController {
 	return  "product/p_order_list";
 	}
 
-
-	
 	
 }
+
+	
+

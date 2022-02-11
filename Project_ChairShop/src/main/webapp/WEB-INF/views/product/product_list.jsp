@@ -1,19 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<link rel="stylesheet"
-	href="${ pageContext.request.contextPath }/resources/css/main.css">
-<link rel="stylesheet"
-	href="${ pageContext.request.contextPath }/resources/css/footer.css">
-<link rel="stylesheet"
-	href="${ pageContext.request.contextPath }/resources/css/header.css">
-<link rel="stylesheet"
-	href="${ pageContext.request.contextPath }/resources/css/top_menu.css">
 <link rel="stylesheet"
 	href="${ pageContext.request.contextPath }/resources/css/product_list.css">
 <script type="text/javascript">
@@ -57,11 +52,11 @@
 					제품이 존재하지 않습니다
 				</c:if>
 					<c:forEach var="vo" items="${ list }">
-						<div class="goods"  onclick="goods_info(${ p_idx });">
+						<div class="goods"  onclick="goods_info(${ vo.p_idx });">
 							<img src="${ pageContext.request.contextPath }/resources/image/${ vo.p_img }">
 							<ul>
 								<li>상품명 ${ vo.p_name }</li>
-								<li>원가 ${ vo.p_price }</li>
+								<li>판매가 <fmt:formatNumber type="currency" value="${ vo.p_price }"/></li>
 							</ul>
 						</div>
 					</c:forEach>

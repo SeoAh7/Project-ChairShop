@@ -30,6 +30,8 @@ public class FaqController {
 	
 	FaqDao faq_dao;
 
+
+
 	public void setFaq_dao(FaqDao faq_dao) {
 		this.faq_dao = faq_dao;
 	}
@@ -49,7 +51,10 @@ public class FaqController {
 		String pageMenu = Paging.getPaging("list.do",nowPage, rowTotal, MyConstant.Faq.BLOCK_LIST, MyConstant.Faq.BLOCK_PAGE);
 		
 		List<FaqVo> list = faq_dao.selectList(map);
+
+		session.removeAttribute("show");
 		
+
 		model.addAttribute("list",list);
 		model.addAttribute("pageMenu",pageMenu);
 		
@@ -60,7 +65,13 @@ public class FaqController {
 	public String view(int f_idx,Model model) {
 		
 		FaqVo vo = faq_dao.selectOne(f_idx);
-		
+		if(session.getAttribute("show")==null) {
+			
+			//조회수 증가
+			int res = faq_dao.update_readhit(f_idx);
+			
+			session.setAttribute("show", true);
+		}
 		model.addAttribute("vo",vo);
 		
 		return "faq/faq_view";
@@ -75,10 +86,8 @@ public class FaqController {
 	@RequestMapping("/faq/insert.do")
 	public String insert(FaqVo vo) {
 		
-		MemberVo user = (MemberVo) session.getAttribute("user");
-		
-
-		vo.setM_id(user.getM_id());
+		//관리자만 답변 가능하기 때문에 id가 아닌 '관리자'로 표시
+		vo.setM_id("관리자");
 		
 		String f_content = vo.getF_content().replaceAll("/r/n", "<br>");
 		vo.setF_content(f_content);

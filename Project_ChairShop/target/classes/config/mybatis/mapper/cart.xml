@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 <mapper namespace="cart">
      <!-- m_idx별 장바구니 조회 -->
 	<select id="cs_cart_list" parameterType="int" resultType="cart">
-		select * from cs_cart where m_idx = #{ m_idx }
+		select * from cs_cart_view where m_idx = #{ m_idx }
 	</select>
 	<!-- m_idx별 총계 -->
 	<select id="cs_cart_total_amount" parameterType="int" resultType="int">
@@ -26,14 +26,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		delete from cs_cart where c_idx=#{ c_idx }
 	</delete>
 	
-	<insert id="cs_cart_insert">
+	<insert id="cs_cart_insert" parameterType="cart">
 		insert into cs_cart values(seq_chairshop_c_idx.nextVal,
 								   1,
-								   '#{p_name}',
+								   #{p_name},
 								   #{p_idx},
 								   #{m_idx},
 								   #{p_price}
-						  );
+						  )
 	</insert>
 </mapper>
 

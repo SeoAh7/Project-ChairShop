@@ -9,10 +9,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/footer.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/header.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/top_menu.css">
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/cart_list_content.css">
 <script type="text/javascript">
 	
@@ -96,11 +92,11 @@
 		<form>
 			<div class="product_cart_list">
 				<ul>
-					<li class="box"><input type="checkbox" class="check_all"></li>
-					<li class="p_info">상품정보</li>
-					<li class="p_count">수량</li>
-					<li class="o_price">주문금액</li>
-				</ul>
+					<li><input type="checkbox" class="check_all"></li>
+					<li>상품정보</li>
+					<li>수량</li>
+					<li>주문금액</li>
+				</ul> 
 				<c:if test="${ empty list }">
 					<p>장바구니가 비었습니다.</p>
 				</c:if>
@@ -113,7 +109,7 @@
 						<li class="box">
 								<input type="checkbox" name="c_idx"  value="${ vo.c_idx }"> 
 						</li>
-						<li class="p_info">${ vo.p_img }&nbsp;&nbsp;${ vo.p_name }</li>
+						<li class="p_info"><img src="${ pageContext.request.contextPath }/resources/image/${ vo.p_img }"><span>${ vo.p_name }</span></li>
 						<li class="p_count">
 								<input type="text" id="c_cnt" class="c_cnt_${ vo.c_idx }" value="${ vo.c_cnt }">
 								<input class="correct" type="button" value="수정" onclick="cart_update('${ vo.c_idx }');">
@@ -125,11 +121,14 @@
 				
 			</div>
 			<input class="p_delete" type="button" value="선택상품삭제" onclick="cart_delete(this.form);">
+			
 		</form>
 		
+
 		
-		
+
 		<div class="product_total_price">
+		<h3>※   <fmt:formatNumber type="currency" value="100000"/>원 이상 구매시 배송비 무료</h3>
 			<c:if test="${ empty list }">
 				<ul>
 					<li>
@@ -166,7 +165,14 @@
 					<li class="plus">+</li>
 					<li>
 						배송비
-						<p><fmt:formatNumber type="currency" value="2500"/></p>
+						<p>
+							<c:if test="${ total_amount>=100000 }">
+								<fmt:formatNumber type="currency" value="0"/>
+						   </c:if>	
+						   <c:if test="${ total_amount<100000 }">
+								<fmt:formatNumber type="currency" value="2500"/>
+						   </c:if>						
+						</p>
 					</li>
 					<li class="minus">-</li>
 					<li>
@@ -177,12 +183,19 @@
 					<li>
 						결제예정금액
 						<p>
-							<fmt:formatNumber type="currency" value="${ total_amount+2500 }"/>
+							<c:if test="${ total_amount>=100000 }">
+								<fmt:formatNumber type="currency" value="${ total_amount }"/>
+						    </c:if>	
+						     <c:if test="${ total_amount<100000 }">
+								<fmt:formatNumber type="currency" value="${ total_amount+2500 }"/>
+						    </c:if>
+							
 						</p>
 						
 					</li>	
 				</ul>
 			</c:if>
+			
 		</div>
 		<div class="add_cart">
 			<ul>

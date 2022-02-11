@@ -38,7 +38,7 @@ insert into cs_product values(seq_chairshop_p_idx.nextVal,
 							  )
 							  
 commit
-delete from cs_product where p_idx=6
+delete from cs_product where p_idx=7
 			  							  							  							  							  							  						  							  							  							  							 
 select * from cs_product
 

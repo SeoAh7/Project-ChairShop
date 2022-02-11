@@ -9,11 +9,6 @@
 <title>Insert title here</title>
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/footer.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/header.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/top_menu.css">
-
 <style type="text/css">
 
 	*{
@@ -28,7 +23,7 @@
 		padding-top: 170px;
 		width: 100%;
 		height: 600px;
-		padding-top:170px;
+		padding-top:170px !important;
 	}
 	div.content_f{
 		position: relative;
@@ -93,6 +88,13 @@
 		 
 		  setTimeout(show_message,100);
 		  
+		  $(".login_form").keypress(function(e) {
+	
+				if(e.keyCode == 13){
+					var f = document.ff;
+					send(f);
+				}
+			});
 	});
 	
 	
@@ -103,7 +105,7 @@
 	  	  
 	  	  alert('아이디가 틀렸습니다');
 	  	  
-	    }	
+	    }
 		  
 	    // /member/login_form.do?reason=fail_pwd
 		  if("${ param.reason eq 'fail_pwd'}"=="true"){
@@ -115,9 +117,26 @@
 		  	  
 		  	  alert('회원가입 되었습니다.');
 		  	  
+		    }
+		  
+		  if("${ param.reason eq 'reset_pwd'}"=="true"){
+	
+		  	  alert('비밀번호가 변경되었습니다.');
+		  	  
+		    }	
+		  
+		  if("${ param.reason eq 'logout'}"=="true"){
+				
+		  	  alert('로그아웃 되었습니다.\r\n다시 로그인해주세요.');
+		  	  
 		    }	
 	}
 
+	
+	//----------------------------------------------------------------------------
+	//----------------------------------------------------------------------------	
+
+	
 	function send(f) {
 		var m_id = f.m_id.value;
 		var m_pwd = f.m_pwd.value;
@@ -139,6 +158,8 @@
 		f.submit();
 	}
 
+
+	
 </script>
 </head>
 <div class="wrap">
@@ -147,22 +168,23 @@
 		
 		<!-- contents -->
 		<section class="content">
-			<form>
-			<div class="content_f">
-				<div class="login_f">
-					<h2>회원 로그인</h2>
-					<input class="login_id" name="m_id" type="text" placeholder="아이디" onblur="placeholder='아이디'" onfocus="placeholder=''">
-					<input class="login_pwd" name="m_pwd" type="password" placeholder="비밀번호" onblur="placeholder='비밀번호'" onfocus="placeholder=''">
-					<input class="login_b" type="button" value="로그인" onclick="send(this.form);">
-					<div class="find_user">
-						<ul>
-							<li><a href="${ pageContext.request.contextPath }/member/find_id_form.do">아이디 찾기</a></li>
-							<li><a href="${ pageContext.request.contextPath }/member/find_pwd_form.do">비밀번호 찾기</a></li>
-							<li><a href="register_form.do">회원가입</a></li>
-						</ul>
+			<form class="login_form"  name="ff">
+				<input type="hidden" name="url" value="${ param.url }">
+				<div class="content_f">
+					<div class="login_f">
+						<h2>회원 로그인</h2>
+						<input class="login_id" name="m_id" type="text" placeholder="아이디" onblur="placeholder='아이디'" onfocus="placeholder=''">
+						<input class="login_pwd" name="m_pwd" type="password" placeholder="비밀번호" onblur="placeholder='비밀번호'" onfocus="placeholder=''">
+						<input class="login_b" type="button" value="로그인" onclick="send(this.form);">
+						<div class="find_user">
+							<ul>
+								<li><a href="${ pageContext.request.contextPath }/member/find_id_form.do">아이디 찾기</a></li>
+								<li><a href="${ pageContext.request.contextPath }/member/find_pwd_form.do">비밀번호 찾기</a></li>
+								<li><a href="register_form.do">회원가입</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
-			</div>
 			</form>
 		</section>
 		

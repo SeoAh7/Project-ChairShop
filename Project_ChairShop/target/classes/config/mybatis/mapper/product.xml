@@ -11,6 +11,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
    <select id="product_category_list" parameterType="String" resultType="vo.ProductVo"> 
         select * from cs_product where category=#{category} 
    </select>
+   <!-- 상품 검색 -->
+   <select id="product_search_list" parameterType="map" resultType="product">
+   		select * from cs_product where category like '%' || #{search_product} || '%'
+   									or p_name like '%' || #{search_product} || '%'
+   									or p_content like '%' || #{search_product} || '%'
+   </select>
    
    <!-- p_idx에 대한 상품정보 1건 -->
    <select id="product_view"  parameterType="int"  resultType="vo.ProductVo">
@@ -26,5 +32,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 			#{p_content}
 		)
    </insert>
+   
+   <select id="product_one_name" parameterType="String" resultType="product">
+   		select * from cs_product where p_name=#{ p_name }
+   </select>
 </mapper>
 

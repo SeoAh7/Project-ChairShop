@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product_in">
+	
+	<!-- 입고목록 전체조회 -->
+	<select id="product_in_list" resultType="product_m">
+		select * from cs_product_in order by pm_idx
+	</select>
+
+	<!-- pm_idx에 해당되는 상품정보 1개 조회 -->
+	<select id="product_in_one" parameterType="int" resultType="product_m">
+		select * from cs_product_in where pm_idx=#{ pm_idx }
+	</select>
+	
+	<!-- 입고등록 -->
+	<insert id="product_in_insert" parameterType="product_m">
+		insert into cs_product_in values(seq_chairshop_in_idx.nextVal,
+									     #{ p_idx },
+									     #{ p_name },
+									     #{ p_cnt },
+									     sysdate
+									    )
+	</insert>
+
+	<!-- 입고취소 -->
+	<delete id="product_in_delete" parameterType="int">
+		delete from cs_product_in where pm_idx=#{ pm_idx }
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

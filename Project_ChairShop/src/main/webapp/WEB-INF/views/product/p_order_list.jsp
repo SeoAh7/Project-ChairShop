@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/main.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/footer.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/header.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/top_menu.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/product_gaming_list.css">
-<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/p_order_list.css">
+<script type="text/javascript">
+function find_pwd(m_name,m_id,m_tel){
+	
+	location.href = "find_pwd.do?m_name=" + m_name"&m_id=" + m_id"&m_tel=" + m_tel;
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -43,7 +43,7 @@
 					<ul>
 						<li><a href="#">주문 내역</a></li>
 						<li><a href="${ pageContext.request.contextPath }/member/modify_form.do?m_idx=${ user.m_idx }">회원 정보 수정</a></li>
-						<li><a href="#">게시물 관리</a></li>
+						<li><a href="${ pageContext.request.contextPath }/member/find_pwd.do?m_name=${ user.m_name }&m_id=${ user.m_id }&m_tel=${ user.m_tel }&m_idx=${ user.m_idx }">비밀번호 변경</a></li>
 					</ul>
 					<div class="order_info">
 						<div class="order_info_list">

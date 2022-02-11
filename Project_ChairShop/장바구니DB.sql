@@ -34,6 +34,7 @@ as
 	select
 	   p.p_idx as p_idx,
 	   c_idx, 
+	   p.p_img,
 	   p.p_name as p_name,
 	   p.p_price as p_price,
 	   c_cnt,
@@ -54,10 +55,10 @@ select * from cs_cart where m_idx=1
 												
 insert into cs_cart values(seq_chairshop_c_idx.nextVal,
 						   1,
-						   'T50',
+						   'UI-1193',
+						   7,
 						   1,
-						   1,
-						   150000
+						   120000
 						  );
 insert into cs_cart values(seq_chairshop_c_idx.nextVal,
 						   1,

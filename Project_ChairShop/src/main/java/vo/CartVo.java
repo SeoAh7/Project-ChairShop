@@ -7,7 +7,14 @@ public class CartVo {
 	String p_price;
 	int p_idx;
 	int m_idx;
+	String p_img;
 	
+	public String getP_img() {
+		return p_img;
+	}
+	public void setP_img(String p_img) {
+		this.p_img = p_img;
+	}
 	public int getC_idx() {
 		return c_idx;
 	}

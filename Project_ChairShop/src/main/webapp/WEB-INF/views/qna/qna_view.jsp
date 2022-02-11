@@ -31,14 +31,14 @@
 	/* contents */
 	section.content{
 		position: relative;
-		padding-top: 170px;
+		padding-top: 170px !important;
 		width: 100%;
 		height: auto;
 	}
 	div.content_f{
 		position: relative;
 		margin : auto;	
-		width: 800px;
+		width: 800px !important;
 		min-height : 600px;
 		background: #fff;
 		text-align: center;
@@ -86,12 +86,7 @@
 					<tr>
 						<th>ID</th>
 						<td>
-							<c:if test="${ vo.m_id eq 'admin' }">
-								관리자
-							</c:if>
-							<c:if test="${ vo.m_id ne 'admin' }">
 								${ vo.m_id_hidden }
-							</c:if>
 						</td>
 					</tr>
 					<tr>

@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 						  		  #{ f_content },
 						  		  sysdate,
 						  		  #{ m_id },
-						  		  seq_chairshop_f_idx.currVal
+						  		  0
 						  		  
 						)
 	</insert>
@@ -52,6 +52,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 						  f_content=#{ f_content },
 						  f_regdate=sysdate
 					where f_idx=#{ f_idx }
+	</update>
+	
+	<!-- 조회수 증가 -->
+	<update id="faq_update_readhit" parameterType="int">
+		update cs_faq set f_readhit = f_readhit +1
+			where f_idx=#{f_idx}
 	</update>
 	
     <delete id="faq_delete" parameterType="int">

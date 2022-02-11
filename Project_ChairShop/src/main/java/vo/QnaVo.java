@@ -31,18 +31,26 @@ public class QnaVo {
 	}
 	
 	public String getM_id_hidden() {
-
-		StringBuffer sb = new StringBuffer();
-		
-		for(int i=0; i<m_id.length(); i++) {
+	
+		//작성자가 관리자면 작성자ID 그대로 표시
+		if(m_id.equals("관리자")) {
+			return m_id;
+		}else {
 			
-			if(i<3) {
-				sb.append(m_id.charAt(i));
-			}else
-				sb.append("*");
+			//작성자가 회원이면 작성자ID 가려서 표시
+			StringBuffer sb = new StringBuffer();
+			
+			for(int i=0; i<m_id.length(); i++) {
+				
+				
+				if(i<3) {
+					sb.append(m_id.charAt(i));
+				}else
+					sb.append("*");
+			}
+			
+			return sb.toString();
 		}
-		
-		return sb.toString();
 	}
 	
 	public int getQ_idx() {

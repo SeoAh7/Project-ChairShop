@@ -26,6 +26,16 @@
 		
 	<context:annotation-config/>
 	
+	<!-- Interceptor 처리객체 -->
+   <beans:bean id="session_interceptor" class="interceptor.SessionInterceptor"></beans:bean> 
+   
+   <interceptors>
+        <interceptor>
+            <mapping path="/admin/*" />
+            <beans:ref  bean="session_interceptor" />            
+        </interceptor>        
+   </interceptors>
+	
 	<!-- MemberController -->
 	<beans:bean class="controller.MemberController">
 		<beans:property name="member_dao" ref="member_dao"/>
@@ -39,6 +49,7 @@
 	<!-- CartController -->
 	<beans:bean class="controller.CartController">
 		<beans:property name="cart_dao" ref="cart_dao"></beans:property>
+		<beans:property name="product_dao" ref="product_dao"></beans:property>
 	</beans:bean>
 	
 	<!-- ProductController -->
@@ -54,6 +65,11 @@
 	<!-- FaqController -->
 	<beans:bean class="controller.FaqController">
 		<beans:property name="faq_dao" ref="faq_dao"></beans:property>
+	</beans:bean>
+	
+	<!-- ProductManageController -->
+	<beans:bean class="controller.ProductManageController">
+		<beans:property name="service" ref="product_service"></beans:property>
 	</beans:bean>
 	
 </beans:beans>

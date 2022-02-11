@@ -31,14 +31,14 @@
 	/* contents */
 	section.content{
 		position: relative;
-		padding-top: 170px;
+		padding-top: 170px !important;
 		width: 100%;
 		height: auto;
 	}
 	div.content_f{
 		position: relative;
 		margin : auto;	
-		width: 800px;
+		width: 800px !important;
 		min-height : 600px;
 		height: inherit;
 		background: #fff;

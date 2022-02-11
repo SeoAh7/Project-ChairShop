@@ -61,4 +61,12 @@ public class FaqDaoImpl implements FaqDao{
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("faq.faq_condition_list", map);
 	}
+
+
+
+	@Override
+	public int update_readhit(int f_idx) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("faq.faq_update_readhit",f_idx);
+	}
 }

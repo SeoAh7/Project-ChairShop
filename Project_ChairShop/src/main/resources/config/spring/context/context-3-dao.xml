@@ -33,5 +33,21 @@
 	<bean id="faq_dao" class="dao.FaqDaoImpl">
 		<property name="sqlSession" ref="sqlSession"/>
 	</bean>
+	
+	
+	<!-- 입고 Dao -->
+	<bean id="product_in_dao" class="dao.Product_in_DaoImpl">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<!-- 출고 Dao -->
+	<bean id="product_out_dao" class="dao.Product_out_DaoImpl">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<!-- 재고 Dao -->
+	<bean id="product_remain_dao" class="dao.Product_remain_DaoImpl">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
 		
 </beans>

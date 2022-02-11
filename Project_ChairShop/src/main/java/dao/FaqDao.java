@@ -14,6 +14,7 @@ public interface FaqDao {
 	 int insert(FaqVo vo);
 	 int delete(int f_idx);
 	 int update(FaqVo vo);
+	 int update_readhit(int f_idx);
 	 int selectRowTotal();
 	
 	 

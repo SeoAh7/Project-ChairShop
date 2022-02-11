@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 div.content_f{
-		padding-top: 170px;
+		padding-top: 170px !important;
 		width:  100%;
 		
 }

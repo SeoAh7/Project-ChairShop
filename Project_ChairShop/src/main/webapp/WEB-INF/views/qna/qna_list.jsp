@@ -30,14 +30,14 @@
 	/* contents */
 	section.content{
 		position: relative;
-		padding-top: 170px;
+		padding-top: 170px !important;
 		width: 100%;
 		height: auto;
 	}
 	div.content_f{
 		position: relative;
 		margin : auto;	
-		width: 1000px;
+		width: 1000px !important;
 		min-height : 600px;
 		height: inherit;
 		background: #fff;
@@ -151,7 +151,18 @@
 		location.href="insert_form.do";
 	}
 	
-	function search(){
+	//----------------------------------------------------------------------	
+	$(document).ready(function() {
+		$("#search_text").keypress(function(e) {
+			if(e.keyCode == 13){
+				search_qna(); 
+			}
+		});
+	});
+	//----------------------------------------------------------------------
+	
+	
+	function search_qna(){
 		
 		var search 		= $("#search").val();
 		var search_text = $("#search_text").val().trim();
@@ -185,8 +196,11 @@
 		<!-- contents -->
 		<section class="content">
 			<div class="content_f">
-				<h1 id="title">QnA 게시판</h1>
-					<input class="insert_btn" type="button" value="글쓰기" onclick="insert_form();">
+				<h1 id="title">QnA</h1>
+					<!-- 관리자가 아닐경우 버튼 표시 -->
+					<c:if test="${ user.m_grade ne '관리자' }">
+						<input class="insert_btn" type="button" value="글쓰기" onclick="insert_form();">
+					</c:if>
 				<!-- 게시판내용 -->
 				<table class="table">
 					<!-- 제목 -->
@@ -212,39 +226,26 @@
 							<td>${ vo.q_idx }</td>
 							<td style="text-align: left; text-indent: 10px;">
 							
-							<!-- 글깊이(q_depth)에 따라서 들여쓰기 -->
-							<c:forEach begin="1" end="${ vo.q_depth }">
-								&nbsp;&nbsp;
-							</c:forEach>
-							
-							<!-- 답글인 경우에만 ㄴ 붙인다 -->
-							<c:if test="${ vo.q_depth ne 0 }">
-							ㄴ
-							</c:if>
-							
-							<!-- 삭제되지 않은 게시물이면 -->
-							<c:if test="${ vo.q_use_yn eq 'y' }">
-								<a class="q_subject" href="view.do?q_idx=${ vo.q_idx }&page=${ empty param.page ? 1 : param.page }&search=${ empty param.search ? 'all' : param.search }&search_text=${ param.search_text }">
-									${ vo.q_subject }
-									<c:if test="${ fn:substring(vo.q_regdate,0,10) eq vo.today }">
-										<img src="${ pageContext.request.contextPath }/resources/image/new.png">
-									</c:if>
-								</a>
-							</c:if>
-							
-							<!-- 삭제된 게시물이면 -->
-							<c:if test="${ vo.q_use_yn eq 'n' }">
-								<font color=gray>삭제된 글입니다.</font>
-							</c:if>
-							
+								<!-- 답글인 경우에만 ㄴ 붙인다 -->
+								<c:if test="${ vo.q_depth ne 0 }">&nbsp;&nbsp;ㄴ</c:if>
+								
+								<!-- 삭제되지 않은 게시물이면 -->
+								<c:if test="${ vo.q_use_yn eq 'y' }">
+									<a class="q_subject" href="view.do?q_idx=${ vo.q_idx }&page=${ empty param.page ? 1 : param.page }&search=${ empty param.search ? 'all' : param.search }&search_text=${ param.search_text }">
+										${ vo.q_subject }
+										<c:if test="${ fn:substring(vo.q_regdate,0,10) eq vo.today }">
+											<img src="${ pageContext.request.contextPath }/resources/image/new.png">
+										</c:if>
+									</a>
+								</c:if>
+								
+								<!-- 삭제된 게시물이면 -->
+								<c:if test="${ vo.q_use_yn eq 'n' }">
+									<font color=gray>삭제된 글입니다.</font>
+								</c:if>
 							</td>
 							<td>
-								<c:if test="${ vo.m_id eq 'admin' }">
-									관리자
-								</c:if>
-								<c:if test="${ vo.m_id ne 'admin' }">
-									${ vo.m_id_hidden }
-								</c:if>
+								${ vo.m_id_hidden }
 							</td>
 							<td>${ fn:substring(vo.q_regdate,0,10) }</td>
 						</tr>
@@ -262,7 +263,7 @@
 					</select>
 					<input id="search_text" value="${ param.search_text }">
 					<input id="search_btn" class="btn btn-warning" type="button" value="검색"
-						   onclick="search();">
+						   onclick="search_qna();">
 				</div>
 		
 				<div id="page_menu">

@@ -14,11 +14,12 @@
 	var regular_pwd = /^(?=.*[a-z])(?=.*[0-9]).{4,16}$/;
 	
 	$(document).ready(function(){
-		
-		if(confirm('입력하신 아이디를 찾았습니다\r비밀번호를 변경하시겠습니까?')==false){
-			location.href = '${ pageContext.request.contextPath }/member/login_form.do';
-			return;
-		}
+ 		if('${ empty param.m_idx}'=='true'){
+			if(confirm('입력하신 아이디를 찾았습니다\r비밀번호를 변경하시겠습니까?')==false){
+				location.href = '${ pageContext.request.contextPath }/member/login_form.do';
+				return;
+			}
+ 		}
 		
 		$('#m_pwd').keyup(function(event){
 			   
@@ -109,110 +110,14 @@
 </script>
 
 <style type="text/css">
-	*{
-		margin: 0;
-		padding: 0;
-		text-decoration: none;
-		list-style: none;
-	}
-		
-	div.wrap{
-		width: 100%;
-		height: auto;
-	}
-	/* top_menu */
-	section.top_menu{
-		position: relative;
-		width: 100%;
-		height: 40px;
-		background: #ccc;
-	}
-	div.top_menu_f{
-		margin : auto;
-		width: 1200px;
-	}
-	div.top_menu_f>ul{
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-end;
-	}
-	div.top_menu_f>ul>li{
-		margin-left : 20px;
-		height: 40px;
-		line-height: 40px;
-	}
-	div.top_menu_f>ul>li>a{
-		display: block;
-		color: #000;
-	}
-	
-	/* header */
-	header.header{
-		position: relative;
-		width: 100%;
-		height: 120px;
-		background: #fff;
-		border-bottom: 1px solid #ccc;
-	}
-	div.header_f{
-		margin : auto;
-		width: 1200px;
-		height: 120px;
-		background: #fff;
-		display: flex;
-		flex-direction: row;
-	}
-	div.header_left{
-		position: relative;
-		width : 20%;
-	}
-	
-	div.header_left>a>img{
-		width: 150px;
-		margin-top: 30px;
-	}
-	div.header_center{
-		position: relative;
-		width: 60%;
-		height: 120px;
-    	line-height: 120px;
-	} 
-	div.header_center>ul{
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-	}
-	div.header_center>ul>li{
-		font-size : 19px;
-		width: 150px;
-	}
-	div.header_center>ul>li>a{
-		color: #000;
-		display: block;
-	}
-	
-	div.header_right{
-		width: 20%;
-		text-align: right;
-	}
-	div.header_right>input{
-		width: 220px;
-		height : 35px;
-		line-height : 35px;
-		font-size : 16px;
-		margin-top: 43px;
-		border-radius: 10px;
-		border : 1px solid #ccc;
-		text-indent: 15px;
-	}
-	
+
 	/* contents */
 	section.content{
 		position: relative;
 		width: 100%;
 		height: 600px;
 		background: #fff;
-		padding-top: 170px;
+		padding-top: 170px !important; 
 	}
 	div.content_f{
 		position: relative;
@@ -273,57 +178,6 @@
 		color: #000;
 	}
 	
-	/* footer */
-	section.footer{
-		position: relative;
-		width: 100%;
-		height: 270px;
-		background: #222;
-	}
-	div.footer_f{
-		margin : auto;
-		width: 1200px;
-		height: 270px;
-		background: #222;
-	}
-	div.foot_info>ul{
-		display: flex;
-		flex-direction: row;
-	}
-	div.foot_info>ul.info_1{
-		padding-top: 30px;
-	}
-	
-	div.foot_info>ul.info_1>li{
-		font-size: 15px;
-		color: #fff;
-		margin-right: 15px;
-		border-right: 1px solid #fff;
-	}
-	div.foot_info>ul.info_1>li>a{
-		color: #fff;
-		padding: 0 10px 10px 0;
-	}
-	div.foot_info>ul.info_1>li:last-child {
-		border: none;
-	}
-	div.foot_info>ul.info_2{
-		padding: 20px 0 20px 0;
-	}
-	div.foot_info>ul.info_2>li{
-		font-size: 14px;
-		color: #ccc;
-		margin-right: 15px;
-	}
-	div.foot_info2>a{
-		font-size: 14px;
-		color: #5aadd5;	
-	}
-	div.foot_info2>ul.info_3>li{
-		font-size: 14px;
-		color: #ccc;
-		margin-top: 15px;
-	}
 </style>
 </head>
 <div class="wrap">
@@ -335,7 +189,7 @@
 		<form>
 			<div class="content_f">
 				<div class="login_f">
-					<h2>비밀번호 찾기</h2>
+					<h2>비밀번호 변경</h2>
 					<input type="hidden" name="m_idx" value="${ find_vo.m_idx }">
 					<table>
 					<tr>
@@ -359,7 +213,7 @@
 					</table>		
 					<div>
 						<input id="reset_pwd_btn" class="find"  type="button" value="비밀번호 변경" onclick="reset_pwd(this.form);" disabled="disabled">
-						<input class="find"  type="button" value="돌아가기" onclick="location.href='${ pageContext.request.contextPath }/member/login_form.do'">
+						<input class="find"  type="button" value="돌아가기" onclick="location.href='${ pageContext.request.contextPath }/product/p_order_list.do'">
 					</div>
 				</div>
 			</div>
@@ -367,33 +221,7 @@
 		</section>
 		
 		<!-- footer -->
-		<section class="footer">
-			<div class="footer_f">
-				<div class="foot_info">
-					<ul class="info_1">
-						<li><a href="../">홈</a></li>
-						<li><a href="#">회사소개</a></li>
-						<li><a href="#">약관등록</a></li>
-						<li><a href="#">개인정보처리방침</a></li>
-						<li><a href="#">이용안내</a></li>
-					</ul>
-					<ul class="info_2">
-						<li>법인명(상호): 주식회사 체어샵</li>
-						<li>대표자(성명): 서상아,정인혁,김치형,박재정,정원철</li>
-						<li>사업자 등록번호 안내 : [111-11-11111]</li>
-						<li>통신판매업 신고 제 2022-인크레파스-class3</li>
-					</ul>
-				</div>
-				<div class="foot_info2">
-					<a href="#">[사업자정보 확인]</a>
-					<ul class="info_3">
-						<li>전화 : 02-123-4567&nbsp;&nbsp;팩스 : 02-869-1080&nbsp;&nbsp;통신판매업 신주소 : 서울특별시 관악구 시흥대로 552 석천빌딩 7F</li>
-						<li>개인정보보호책임자 : 정인혁(wol01137@naver.com)</li>
-						<li>Copyright @ 2022 체어샵.All rights reserved</li>
-					</ul>
-				</div>
-			</div>
-		</section>
+		<%@include file="../footer/footer.jsp" %>
 		
 	</div>
 </body>
