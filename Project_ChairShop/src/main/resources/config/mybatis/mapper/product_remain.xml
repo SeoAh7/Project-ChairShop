@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	
 	<!-- 재고목록 전체조회 -->
 	<select id="product_remain_list" resultType="product_m">
-		select * from cs_product_remain order by pm_idx
+		select * from cs_product_remain order by pm_idx desc
 	</select>
 
 	<!-- 상품명을 이용한 객체 조회 -->
@@ -21,11 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<!-- 재고등록 -->
 	<insert id="product_remain_insert" parameterType="product_m">
 		insert into cs_product_remain values(seq_chairshop_remain_idx.nextVal,
-									  	  #{ p_idx },
-									  	  #{ p_name },
-									 	  #{ p_cnt },
-									  	  sysdate
-										 )
+									  	  	 #{ p_idx },
+									  	  	 #{ p_name },
+									 	  	 #{ p_cnt },
+									  	  	 sysdate
+										 	)
 	</insert>
 	
 	<!-- 수량 수정 -->

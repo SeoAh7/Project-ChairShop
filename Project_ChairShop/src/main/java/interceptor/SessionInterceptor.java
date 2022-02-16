@@ -29,7 +29,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter{
 		}else {
 				
 			//로그인한 유저가 관리자가 아닐경우
-			if(!user.getM_id().equals("admin")) {
+			if(!user.getM_grade().equals("관리자")) {
 				
 				response.sendRedirect("../?reason=not_admin");
 			}

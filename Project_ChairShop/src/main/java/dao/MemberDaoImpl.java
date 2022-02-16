@@ -59,9 +59,15 @@ public class MemberDaoImpl implements MemberDao{
 	
 
 	@Override
-	public MemberVo selectOne(MemberVo vo) {
+	public MemberVo selectOne_id(MemberVo vo) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("member.member_one_vo", vo);
+		return sqlSession.selectOne("member.member_one_vo_id", vo);
+	}
+	
+	@Override
+	public MemberVo selectOne_pwd(MemberVo vo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("member.member_one_vo_pwd", vo);
 	}
 
 	@Override

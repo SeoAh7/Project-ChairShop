@@ -67,7 +67,8 @@ insert into cs_cart values(seq_chairshop_c_idx.nextVal,
 						   1,
 						   100000
 						  );
-select * from cs_cart
+						  
+select * from cs_cart where m_idx=2
 
 commit
 */

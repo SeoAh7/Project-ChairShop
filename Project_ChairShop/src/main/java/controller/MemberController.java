@@ -207,11 +207,13 @@ public class MemberController {
 		
 		Map map = new HashMap();
 		
-		MemberVo find_vo = member_dao.selectOne(vo);
+		MemberVo find_vo = member_dao.selectOne_id(vo);
 		
-		String find_id = find_vo.find_id();
 		
 		if(find_vo != null) {
+			
+			String find_id = find_vo.find_id();
+			
 			map.put("find_id", find_id);
 			map.put("result", true);
 		}else {
@@ -230,11 +232,18 @@ public class MemberController {
 	@RequestMapping("/member/find_pwd.do")
 	public String find_pwd(MemberVo vo, Model model) {
 		
-		MemberVo find_vo = member_dao.selectOne(vo);
+		MemberVo find_vo = member_dao.selectOne_pwd(vo);
 		
-		model.addAttribute("find_vo", find_vo);
-		
-		return "member/reset_pwd_form";
+		if(find_vo == null) {
+			
+			model.addAttribute("reason", "null_account");
+			return "redirect:find_pwd_form.do";
+			
+		}else { 
+			
+			model.addAttribute("find_vo", find_vo);
+			return "member/reset_pwd_form";
+		}
 	}
 	
 	@RequestMapping("/member/reset_pwd.do")
@@ -279,14 +288,19 @@ public class MemberController {
 		}
 		//회원이 마이페이지에서 수정하기
 		@RequestMapping("/member/modify.do")
-		public String modify(MemberVo vo) {
+		public String modify(MemberVo vo, Model model) {
 			
 			String m_ip = request.getRemoteAddr();
 			vo.setM_ip(m_ip);
 					
 			int res = member_dao.update(vo);
+			
+			
+			model.addAttribute("m_idx", vo.getM_idx());
+			
+			model.addAttribute("reason", "modify_success");
 					
-			return "redirect:../";
+			return "redirect:../product/p_order_list.do";
 		}
 		
 		

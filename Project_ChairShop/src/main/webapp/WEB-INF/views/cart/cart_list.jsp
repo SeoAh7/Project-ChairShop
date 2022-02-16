@@ -49,6 +49,7 @@
 		
 	}
 	
+	
 	//-----------------------------------------------------------------------------------------------------
 	$(document).ready(function(){
 		$('.check_all').click(function(){
@@ -199,10 +200,10 @@
 		</div>
 		<div class="add_cart">
 			<ul>
-				<li><a href="#">상품주문</a></li>
+				<li><a href="${pageContext.request.contextPath}/cart/p_order_form.do?m_idx=${user.m_idx}" class="p_order">상품주문</a></li>
 			</ul>
 		</div>
-		
+
 		<div class="cart_use_info">
 			<p>장바구니 이용안내</p>
 			<ul>

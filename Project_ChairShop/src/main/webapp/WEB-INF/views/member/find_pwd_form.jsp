@@ -11,6 +11,20 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 
+	$(document).ready(function(){
+		
+		setTimeout(show_message, 100);
+		
+	});
+	
+	function show_message(){
+		
+		if('${ param.reason eq "null_account" }' == 'true'){
+				alert('찾으시려는 회원 정보가 존재하지 않습니다');
+				return;	
+		}
+	}
+
 	var regular_tel = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 	
 	function find_pwd(f) {
@@ -171,9 +185,9 @@
 			<div class="content_f">
 				<div class="login_f">
 					<h2>비밀번호 찾기</h2>
-					<input class="reset_pwd" name="m_name" id="m_name" type="text" placeholder="찾으시려는 분의 이름을 입력해 주세요" onfocus="placeholder=''">
-					<input class="reset_pwd" name="m_id"   id="m_id" type="text" placeholder="찾으시려는 분의 아이디를 입력해 주세요" onfocus="placeholder=''">
-					<input class="reset_pwd" name="m_tel" id="m_tel" type="text"placeholder="찾으시려는 분의 '-'를 포함한 전화번호를 입력해 주세요" onfocus="placeholder=''">
+					<input class="reset_pwd" name="m_name" id="m_name" type="text" placeholder="찾으시려는 분의 이름을 입력해 주세요" onblur="placeholder='찾으시려는 분의 이름을 입력해 주세요'" onfocus="placeholder=''">
+					<input class="reset_pwd" name="m_id"   id="m_id" type="text" placeholder="찾으시려는 분의 아이디를 입력해 주세요" onblur="placeholder='찾으시려는 분의 아이디를 입력해 주세요'" onfocus="placeholder=''">
+					<input class="reset_pwd" name="m_tel" id="m_tel" type="text"placeholder="찾으시려는 분의 - 를 포함한 전화번호를 입력해 주세요" onblur="placeholder='찾으시려는 분의 - 를 포함한 전화번호를 입력해 주세요'" onfocus="placeholder=''">
 					
 					<div>
 						<input class="find"  type="button" value="비밀번호 찾기" onclick="find_pwd(this.form);">

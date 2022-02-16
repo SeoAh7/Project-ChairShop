@@ -49,8 +49,12 @@
 				</div>
 				<div class="p_list_menu">
 					<c:if test="${ empty list }">
-					제품이 존재하지 않습니다
-				</c:if>
+					<div class="none_goods">
+						<ul>
+							<li>제품이 존재하지 않습니다</li>
+						</ul>
+					</div>
+					</c:if>
 					<c:forEach var="vo" items="${ list }">
 						<div class="goods"  onclick="goods_info(${ vo.p_idx });">
 							<img src="${ pageContext.request.contextPath }/resources/image/${ vo.p_img }">

@@ -148,7 +148,7 @@
 	   
 	   
 	   if('${user.m_grade eq "관리자"}' == 'true'){
-		   $('.member_input').attr('disabled',false);
+		   $('.member_input').attr('readonly',false);
 	   }
 });
 
@@ -180,7 +180,7 @@
 	
 	function modify(f) {
 	
-		
+		var m_name = f.m_name.value.trim();
 		var m_mail = f.m_mail.value;
 		var m_tel = f.m_tel.value;
 		var m_zipcode = f.m_zipcode.value;
@@ -201,6 +201,12 @@
 			f.m_tel.focus();
 			return;
 		}
+		if(m_name==''){
+			alert('이름을 입력하세요');
+			f.m_name.value='';
+			f.m_name.focus();
+			return;
+		}
 		
 		if(m_zipcode==''){
 			alert('우편번호를 입력하세요');
@@ -214,6 +220,8 @@
 			f.m_addr.focus();
 			return;
 		}
+		
+		if(confirm("회원정보를 변경하시겠습니까?")==false)return;
 		
 		f.action='modify.do';
 		f.submit();
@@ -229,18 +237,18 @@
 		
 		<!-- contents -->
 		<section class="content">
-			<form action="javascript:alert('회원정보변경이 완료되었습니다.');">
+			<form>
 			<div class="content_f">
 				<h1>회원정보 변경</h1>
 				<div class="user_form">
 					<h2>기존정보</h2>
 					<input type="hidden" name="m_idx" value="${ vo.m_idx }">
 					<ul>
-						<li><span class="head">이름</span><input class="member_input" type="text" value="${ vo.m_name }" disabled="disabled"></li>
-						<li><span class="head">아이디</span> <input class="member_input" type="text" value="${ vo.m_id }" id="id" placeholder="영문 소문자/숫자,4~16자" disabled="disabled">
+						<li><span class="head">이름</span><input class="member_input" name="m_name" type="text" value="${ vo.m_name }" readonly="readonly"></li>
+						<li><span class="head">아이디</span> <input class="member_input" name="m_id" type="text" value="${ vo.m_id }" id="id" placeholder="영문 소문자/숫자,4~16자" readonly="readonly">
 							<span id="m_id_message"></span>
 						</li>
-						<li><span class="head">비밀번호</span> <input style="width: 65%;" id="m_pwd" value="${ vo.m_pwd }" type="password" placeholder="영문 소문자/숫자 조합,4자~16자" disabled="disabled">
+						<li><span class="head">비밀번호</span> <input style="width: 65%;" id="m_pwd" name="m_pwd" value="${ vo.m_pwd }" type="password" placeholder="영문 소문자/숫자 조합,4자~16자" readonly="readonly">
 							<span id="m_pwd_message"></span>
 						</li>
 						
@@ -254,7 +262,7 @@
 				</div>
 				
 				<div class="y_n">
-					<input type="button" class="cancel" value="취소하기" onclick="location.href='../product/p_order_list.do'">
+					<input type="button" class="cancel" value="취소하기" onclick="location.href='../product/p_order_list.do?m_idx=${ user.m_idx }'">
 					<input type="button" class="join" value="변경하기" onclick="modify(this.form);">
 				</div>
 			</div>

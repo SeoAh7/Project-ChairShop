@@ -10,11 +10,8 @@
 <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/product_view.css">
 	
 <script type="text/javascript">
-	function p_list() {
 	
-		location.href = "/product/product_list.do?category="+category;
-	}
-function cart_insert() {
+	function cart_insert() {
 		
 		//로그인 상태 체크
 		if('${ empty user }' == 'true'){
@@ -58,6 +55,8 @@ function cart_insert() {
 		});
 		
 	}
+	
+	
 </script>
 </head>
 <body>
@@ -71,9 +70,9 @@ function cart_insert() {
 					<ul>
 						<li><a href="../">홈</a></li>
 						<li>></li>
-						<li><a href="${ pageContext.request.contextPath }/product/product_list.do?category=">전체보기</a></li>
+						<li><a href="${ pageContext.request.contextPath }/product/product_list.do?category=&search_product=">전체보기</a></li>
 						<li>></li>
-						<li><a href="#" onclick="p_list();">현상품 카테고리 리스트</a></li>
+						<li><a href="${ pageContext.request.contextPath }/product/product_list.do?category=${ vo.category }&search_product=">현상품 카테고리 리스트</a></li>
 					</ul>
 				</div>
 					<div class="goods_info">
@@ -85,7 +84,6 @@ function cart_insert() {
 								<textarea disabled="disabled">${ vo.p_content }</textarea>
 								<div class="p_buy">
 									<a href="#" class="cart_insert" onclick="cart_insert();">장바구니</a>
-									<a href="#" class="cart_buy" onclick="cart_buy();">구매하기</a>
 								</div>
 							</div>
 						

@@ -10,7 +10,8 @@ public interface MemberDao {
 	List<MemberVo> selectList(Map map);
 	MemberVo selectOne(int m_idx);
 	MemberVo selectOne(String m_id);
-	MemberVo selectOne(MemberVo vo);
+	MemberVo selectOne_id(MemberVo vo);
+	MemberVo selectOne_pwd(MemberVo vo);
 	
 	int insert(MemberVo vo);
 	int delete(int m_idx);

@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import dao.OrderDao;
 import dao.ProductDao;
 import vo.MemberVo;
+import vo.OrderVo;
 import vo.ProductVo;
 
 @Controller
@@ -30,17 +32,20 @@ public class ProductController {
 	
 	ProductDao product_dao;
 	
+	OrderDao order_dao;
+	
 	
 	public void setProduct_dao(ProductDao product_dao) {
 		this.product_dao = product_dao;
 	}
-
+	 public void setOrder_dao(OrderDao order_dao) {
+			this.order_dao = order_dao;
+	}
 	
 //---------------------------------------------------------------------------	  -----------------------------------------------------------------------------
 	  
 	  //전체 목록보기
-	  
-	  @RequestMapping("/product/product_list.do") 
+	@RequestMapping("/product/product_list.do") 
 	  public String list(String category, String search_product, Model model) {
 		  
 		  if(category.equals("")==true && search_product.equals("")==true) {
@@ -142,10 +147,19 @@ public class ProductController {
 	
 //------------------------------주문리스트 폼 띄우기-----------------------------------------
 	@RequestMapping("/product/p_order_list.do")
-	public String p_order_list() {
-	
-	return  "product/p_order_list";
-	}
+	   public String p_order_list(int m_idx,Model model) {
+	   
+	      List<OrderVo> list = order_dao.selectList(m_idx);
+	      
+	      int order_count_y = order_dao.selectCount_y(m_idx);
+	      int order_count_n = order_dao.selectCount_n(m_idx);
+	      
+	      model.addAttribute("order_count_y", order_count_y);
+	      model.addAttribute("order_count_n", order_count_n);
+	      model.addAttribute("list", list);
+	      
+	   return  "product/p_order_list";
+	   }
 
 	
 }

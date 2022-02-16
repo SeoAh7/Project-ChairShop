@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	
 	<!-- 출고목록 전체조회 -->
 	<select id="product_out_list" resultType="product_m">
-		select * from cs_product_out order by pm_idx
+		select * from cs_product_out order by pm_idx desc
 	</select>
 
 	<!-- pm_idx에 해당되는 상품정보 1개 조회 -->

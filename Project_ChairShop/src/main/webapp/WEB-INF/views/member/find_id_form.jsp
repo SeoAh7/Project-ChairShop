@@ -142,8 +142,8 @@
 			<div class="content_f">
 				<div class="login_f">
 					<h2>아이디 찾기</h2>
-					<input class="find_id" name="m_name" id="m_name" type="text" placeholder="찾으시려는 분의 이름을 입력해 주세요" onfocus="placeholder=''">
-					<input class="find_id" name="m_tel" id="m_tel" type="text"placeholder="찾으시려는 분의 '-'를 포함한 전화번호를 입력해 주세요" onfocus="placeholder=''">
+					<input class="find_id" name="m_name" id="m_name" type="text" placeholder="찾으시려는 분의 이름을 입력해 주세요" onblur="placeholder='찾으시려는 분의 이름을 입력해 주세요'" onfocus="placeholder=''">
+					<input class="find_id" name="m_tel" id="m_tel" type="text"placeholder="찾으시려는 분의 - 를 포함한 전화번호를 입력해 주세요" onblur="placeholder='찾으시려는 분의 - 를 포함한 전화번호를 입력해 주세요'" onfocus="placeholder=''">
 					<div id="find_id_disp">
 					</div>
 					<div>

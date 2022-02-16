@@ -67,15 +67,18 @@ alter table cs_product_remain
 alter table cs_product_remain
 	add constraint unique_cs_product_remain_name unique(p_name);
 
+
 --재고&상품 간의 p_idx 외래키
 alter table cs_product_remain
 	add constraint fk_cs_product_remain_p_idx foreign key(p_idx)
 										  	  references cs_product(p_idx);
 
 
-select * from cs_product_in
+select * from cs_product_in order by pm_idx desc
 select * from cs_product_out
 select * from cs_product_remain
+
+delete from cs_product_remain
 
 
 

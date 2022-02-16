@@ -48,13 +48,16 @@
 	
 	<!-- CartController -->
 	<beans:bean class="controller.CartController">
+		<beans:property name="member_dao" ref="member_dao"></beans:property>
 		<beans:property name="cart_dao" ref="cart_dao"></beans:property>
 		<beans:property name="product_dao" ref="product_dao"></beans:property>
+		<beans:property name="order_dao" ref="order_dao"></beans:property>
 	</beans:bean>
 	
 	<!-- ProductController -->
 	<beans:bean class="controller.ProductController">
 		<beans:property name="product_dao" ref="product_dao"></beans:property>
+		<beans:property name="order_dao" ref="order_dao"></beans:property>
 	</beans:bean>
 	
 	<!-- NoticeController -->
@@ -69,6 +72,13 @@
 	
 	<!-- ProductManageController -->
 	<beans:bean class="controller.ProductManageController">
+		<beans:property name="service" ref="product_service"></beans:property>
+	</beans:bean>
+	
+	<!-- OrderController -->
+	<beans:bean class="controller.OrderController">
+		<beans:property name="order_dao" ref="order_dao"></beans:property>
+		<beans:property name="product_remain_dao" ref="product_remain_dao"></beans:property>
 		<beans:property name="service" ref="product_service"></beans:property>
 	</beans:bean>
 	

@@ -48,14 +48,17 @@ public class ProductManageController {
 	
 	//입고
 	@RequestMapping("/admin/insert_in.do")
-	public String insert_in(ProductManageVo vo) {
+	public String insert_in(ProductManageVo vo, Model model) {
 		
 		try {
 			//서비스 객체에 입고처리 요청
 			int res = service.insert_in(vo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			String message = e.getMessage();
+			
+			model.addAttribute("error", message);
 		}
 		
 		return "redirect:product_in_list.do";

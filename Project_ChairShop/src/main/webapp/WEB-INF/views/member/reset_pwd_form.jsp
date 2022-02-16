@@ -14,7 +14,7 @@
 	var regular_pwd = /^(?=.*[a-z])(?=.*[0-9]).{4,16}$/;
 	
 	$(document).ready(function(){
- 		if('${ empty param.m_idx}'=='true'){
+ 		if('${ empty user }'=='true'){
 			if(confirm('입력하신 아이디를 찾았습니다\r비밀번호를 변경하시겠습니까?')==false){
 				location.href = '${ pageContext.request.contextPath }/member/login_form.do';
 				return;
@@ -213,7 +213,12 @@
 					</table>		
 					<div>
 						<input id="reset_pwd_btn" class="find"  type="button" value="비밀번호 변경" onclick="reset_pwd(this.form);" disabled="disabled">
-						<input class="find"  type="button" value="돌아가기" onclick="location.href='${ pageContext.request.contextPath }/product/p_order_list.do'">
+						<c:if test="${ empty user }">
+							<input class="find"  type="button" value="돌아가기" onclick="location.href='${ pageContext.request.contextPath }/member/login_form.do'">
+						</c:if>
+						<c:if test="${ not empty user }">
+							<input class="find"  type="button" value="돌아가기" onclick="location.href='${ pageContext.request.contextPath }/product/p_order_list.do?m_idx=${ user.m_idx }'">
+						</c:if>
 					</div>
 				</div>
 			</div>

@@ -267,6 +267,14 @@
 		f.submit();
 	}
 
+	function cancle(){
+		
+		if(confirm('회원가입을 취소하고 메인페이지로 돌아갑니다')==false) return;
+		
+		location.href = '${pageContext.request.contextPath}/';
+		
+	}
+	
 </script>
 
 </head>
@@ -303,7 +311,7 @@
 				</div>
 				
 				<div class="y_n">
-					<input type="button" class="cancel" value="취소하기" onclick="location.href='../'">
+					<input type="button" class="cancel" value="취소하기" onclick="cancle();">
 					<input type="button" class="join" value="가입하기" onclick="insert(this.form);" disabled="disabled">
 				</div>
 			</div>

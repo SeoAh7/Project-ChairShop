@@ -61,6 +61,18 @@
 		margin : 0 2% 0 2%;
 		box-sizing: border-box;
 	}
+	div.none_goods{
+		width: 100%;
+	}
+	div.none_goods>ul{
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		color: red;
+		margin-bottom: 100px;
+	}	
+	
 	div.goods{
 		width: 23%;
 		margin:  0 1% 0 1%;

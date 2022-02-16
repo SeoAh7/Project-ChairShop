@@ -50,4 +50,8 @@
 		<property name="sqlSession" ref="sqlSession"/>
 	</bean>
 		
+	<!-- OrderDaoImpl -->
+	<bean id="order_dao" class="dao.OrderDaoImpl">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
 </beans>

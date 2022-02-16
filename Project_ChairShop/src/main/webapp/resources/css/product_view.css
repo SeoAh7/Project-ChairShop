@@ -61,7 +61,7 @@ div.p_info>textarea{
 div.p_buy{
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: flex-end;
 }
 div.p_buy>a{
 	width: 45%;

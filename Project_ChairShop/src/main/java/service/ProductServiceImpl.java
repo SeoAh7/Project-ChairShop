@@ -51,28 +51,37 @@ public class ProductServiceImpl implements ProductService {
 		
 		ProductVo proVo = product_dao.selectOne(p_name);
 		
-		vo.setP_idx(proVo.getP_idx());
-		
-		//입고테이블에 등록
-		int res = product_in_dao.insert(vo);
-		
-		//재고테이블에 현재 등록상품정보 얻어오기
-		ProductManageVo remainVo = product_remain_dao.selectOne(vo.getP_name());
-		
-		if(remainVo==null) {
+		if(proVo==null) {
 			
-			res = product_remain_dao.insert(vo);
-		
+			throw new Exception("in_not");
+			
 		}else {
+		
+			vo.setP_idx(proVo.getP_idx());
 			
-			//수량 = 기준수량 + 새로 입고된 수량
-			int cnt = remainVo.getP_cnt() + vo.getP_cnt();
-			remainVo.setP_cnt(cnt);
+			//입고테이블에 등록
+			int res = product_in_dao.insert(vo);
 			
-			res = product_remain_dao.insert(remainVo);
+			//재고테이블에 현재 등록상품정보 얻어오기
+			ProductManageVo remainVo = product_remain_dao.selectOne(vo.getP_name());
+			
+			
+			if(remainVo==null) {
+				
+				res = product_remain_dao.insert(vo);
+			
+			}else {
+				
+				//수량 = 기준수량 + 새로 입고된 수량
+				int cnt = remainVo.getP_cnt() + vo.getP_cnt();
+				remainVo.setP_cnt(cnt);
+				
+				res = product_remain_dao.updateCnt(remainVo);
+			}
+			
+			return res;
 		}
 		
-		return res;
 	}
 
 	@Override
@@ -83,36 +92,40 @@ public class ProductServiceImpl implements ProductService {
 		
 		ProductVo proVo = product_dao.selectOne(p_name);
 		
-		vo.setP_idx(proVo.getP_idx());
-		
-		//출고테이블에 등록
-		int res = product_out_dao.insert(vo);
-		
-		ProductManageVo remainVo = product_remain_dao.selectOne(vo.getP_name());
-		
-		if(remainVo==null) {
+		if(proVo==null) {
 			
-			//예외 발생
 			throw new Exception("remain_not");
 			
 		}else {
 			
+			vo.setP_idx(proVo.getP_idx());
+			
+			//출고테이블에 등록
+			int res = product_out_dao.insert(vo);
+			
+			ProductManageVo remainVo = product_remain_dao.selectOne(vo.getP_name());
+			
+				
 			//출고수량 > 재고수량일 경우
 			if(vo.getP_cnt()>remainVo.getP_cnt()) {
 				
 				//예외 발생
 				throw new Exception("remain_lack");
+			}else {
+				
+				//정상적인 재고수정
+				//수량 = 재고수량 - 출고수량
+				int cnt = remainVo.getP_cnt() - vo.getP_cnt();
+				remainVo.setP_cnt(cnt);
+				
+				res = product_remain_dao.updateCnt(remainVo);
+				
 			}
+
+			return res;
 			
-			//정상적인 재고수정
-			//수량 = 재고수량 - 출고수량
-			int cnt = remainVo.getP_cnt() - vo.getP_cnt();
-			remainVo.setP_cnt(cnt);
-			
-			res = product_remain_dao.updateCnt(remainVo);
 		}
 		
-		return res;
 	}
 
 	@Override
@@ -160,7 +173,7 @@ public class ProductServiceImpl implements ProductService {
 		ProductManageVo remainVo = product_remain_dao.selectOne(delVo.getP_name());
 		
 		//수량 = 재고수량 - 출고취소수량
-		int cnt = remainVo.getP_cnt() - delVo.getP_cnt();
+		int cnt = remainVo.getP_cnt() + delVo.getP_cnt();
 		remainVo.setP_cnt(cnt);
 		
 		res = product_remain_dao.updateCnt(remainVo);

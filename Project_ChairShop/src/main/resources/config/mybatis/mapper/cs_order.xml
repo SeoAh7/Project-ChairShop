@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cs_order">
+
+    <select id="order_list" resultType="order">
+    	select * from cs_product_order order by o_idx desc
+    </select>
+    
+    <select id="order_list_one" parameterType="int" resultType="order">
+    	select * from cs_product_order
+    		where o_idx=#{ o_idx }
+    </select>
+    
+    <select id="m_order_list" parameterType="int" resultType="order">
+       select * from cs_product_order
+          where m_idx=#{m_idx} order by o_idx desc
+    </select>
+    
+    <select id="order_count_y" parameterType="int" resultType="int">
+       select nvl(count(*),0) from cs_product_order where order_yn='y' and m_idx = #{ m_idx }
+    </select>   
+     
+    <select id="order_count_n" parameterType="int" resultType="int">
+       select nvl(count(*),0) from cs_product_order where order_yn='n' and m_idx = #{ m_idx }
+    </select>    
+    
+    <insert id="order_insert" parameterType="order">
+		insert into cs_product_order values(seq_chairshop_order_idx.nextVal,
+											#{ m_idx },
+											#{ m_id },
+											#{ p_idx },
+											#{ p_name },
+											#{ p_price },
+											#{ c_idx },
+											#{ c_cnt },
+											sysdate,
+											default
+										   )
+    </insert>
+    
+    <update id="order_update" parameterType="int">
+    	update cs_product_order set order_yn='y'
+    		where o_idx=#{ o_idx }
+    </update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

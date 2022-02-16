@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,7 +119,8 @@
 				</div>
 				<div class="list_info">
 					<ul>
-						<li>제품일련번호</li>
+						<li>번호</li>
+						<li>제품번호</li>
 						<li>제품명</li>
 						<li>수량</li>
 						<li>재고일자</li>
@@ -131,7 +133,7 @@
 							<li>${ vo.p_idx }</li>
 							<li>${ vo.p_name }</li>
 							<li>${ vo.p_cnt }</li>
-							<li>${ vo.regdate }</li>
+							<li>${ fn:substring(vo.regdate,0,16) }</li>
 						</ul>
 					</c:forEach>
 				</div>						

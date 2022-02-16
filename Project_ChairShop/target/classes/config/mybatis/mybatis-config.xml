@@ -16,6 +16,7 @@
 		<typeAlias type="vo.FaqVo" alias="faq"/>
 		<typeAlias type="vo.NoticeVo" alias="notice"/>
 		<typeAlias type="vo.ProductManageVo" alias="product_m"/>
+		<typeAlias type="vo.OrderVo" alias="order"/>
 	</typeAliases>
 	
 	<mappers>
@@ -28,5 +29,6 @@
 		<mapper resource="config/mybatis/mapper/product_in.xml"/>
 		<mapper resource="config/mybatis/mapper/product_out.xml"/>
 		<mapper resource="config/mybatis/mapper/product_remain.xml"/>
+		<mapper resource="config/mybatis/mapper/cs_order.xml"/>
 	</mappers>
 </configuration>

@@ -49,5 +49,6 @@ select * from cs_member
 update cs_member set m_pwd = '1234'
 	where m_idx = 2
 
-
+update cs_member set m_grade = '°ü¸®ÀÚ'
+	where m_idx = 22
 */

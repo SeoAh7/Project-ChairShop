@@ -25,7 +25,6 @@
 		
 	}
 
-
 	function cart_list() {
 		
 		if('${ empty user}'=='true'){
@@ -44,10 +43,13 @@
 			location.href='${ pageContext.request.contextPath }/member/login_form.do';
 		}
 		else{
-			location.href='${ pageContext.request.contextPath }/product/p_order_list.do';
+			location.href='${ pageContext.request.contextPath }/product/p_order_list.do?m_idx=${ user.m_idx }';
 		}
 		
 	}
+	
+	
+	
 	//----------------------------------------------------------------------	
 	$(document).ready(function() {
 		$("#search_product").keypress(function(e) {
@@ -55,6 +57,8 @@
 				 search(); 
 			}
 		});
+		
+		
 	});
 	//----------------------------------------------------------------------
 	
@@ -95,7 +99,7 @@
 			<ul><c:if test="${ user.m_grade eq '관리자' }">
 				
 				<li class="admin"><a href="#" onclick="admin_page();">관리자페이지</a></li>
-				<li class="user"><a href="#" onclick="user_page();">회원페이지</a></li>
+				<li class="btn_user"><a href="#" onclick="user_page();">회원페이지</a></li>
 				</c:if>
 				<c:if test="${ not empty user }">
 					<li>
@@ -149,7 +153,7 @@
 			</ul>
 			<ul class="admin_page">
 					<li><a href="${ pageContext.request.contextPath }/product/product_insert_form.do">상품등록</a></li>
-					<li><a href="${ pageContext.request.contextPath }/order/order_confirm.do">주문접수</a></li>
+					<li><a href="${ pageContext.request.contextPath }/order/order_list.do">주문접수</a></li>
 					<li><a href="${ pageContext.request.contextPath }/admin/product_remain_list.do">재고관리</a></li>
 					<li><a href="${ pageContext.request.contextPath }/admin/member_list.do">회원목록</a></li>
 			</ul>
